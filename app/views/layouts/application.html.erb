@@ -11,7 +11,21 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <h1> Cadê Buffet? </h1>
+      <nav>
+        <%= link_to 'Cadastrar', new_user_registration_path %> |
+        <%= link_to 'Entrar', new_user_session_path %> |
+      </nav>
+    </header>
+    <main>
+      <div>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+
+      <%= yield %>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
