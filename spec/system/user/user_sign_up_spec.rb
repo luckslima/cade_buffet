@@ -35,7 +35,7 @@ describe 'Usuário se cadastra' do
         click_on 'Criar conta'
 
         #Assert
-        expect(current_path).to new_buffet_path
+        expect(current_path).to eq new_buffet_path
         expect(page).to have_content 'Agora só falta cadastrar o seu buffet!'
         expect(page).to have_content 'Sair'
     end
