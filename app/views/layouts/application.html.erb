@@ -14,8 +14,13 @@
     <header>
       <h1> Cadê Buffet? </h1>
       <nav>
-        <%= link_to 'Cadastrar', new_user_registration_path %> |
-        <%= link_to 'Entrar', new_user_session_path %> |
+        <% if user_signed_in? %>
+          <%= current_user.name %> 
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Cadastrar', new_user_registration_path %> |
+          <%= link_to 'Entrar', new_user_session_path %> |
+        <% end %>
       </nav>
     </header>
     <main>
