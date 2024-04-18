@@ -20,7 +20,7 @@ describe 'Usuário registra um buffet' do
         fill_in "CEP", with: "40527-700"
         fill_in "Descrição", with: "Buffet para casamentos e festas de 15 anos"
         fill_in "Meios de Pagamento", with: "Boleto e Cartão"
-        click_on 'Cadastrar Buffet'
+        click_on 'Criar Buffet'
 
         #Assert 
         expect(page).to have_content("Buffet cadastrado com sucesso!")

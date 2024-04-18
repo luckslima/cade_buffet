@@ -1,2 +1,18 @@
 <h1> <%= @buffet.brand_name %> </h1>
 
+<div>
+    <dl>
+        <dd>Razão Social:</dd>
+        <dt><%= @buffet.corporate_name %></dt>
+        <dd>CNPJ:</dd>
+        <dt><%= @buffet.registration_number %></dt>
+        <dd>Localização:</dd>
+        <dt><%= @buffet.city %> | <%= @buffet.state %>% </dt>
+        <dd>CEP:</dd>
+        <dt><%= @buffet.zip_code %></dt>
+    </dl>
+</div>
+
+<% if current_user == @buffet.user %>
+    <%=link_to('Atualizar Buffet', edit_buffet_path(@buffet.id))%>
+<% end %>

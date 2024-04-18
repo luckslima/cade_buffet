@@ -1,6 +1,7 @@
 class BuffetsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
-  before_action :ensure_buffet_owner, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :ensure_buffet_owner, only: [:new, :create, :edit, :update]
+  before_action :authorize_owner!, only: [:edit, :update]
 
     def new
         @buffet = Buffet.new()
@@ -22,6 +23,23 @@ class BuffetsController < ApplicationController
       @buffet = Buffet.find(params[:id])
     end
 
+    def edit
+      @buffet = Buffet.find(params[:id])
+    end
+
+    def update
+      @buffet = Buffet.find(params[:id])
+
+      if @buffet.update(buffet_params)
+
+          redirect_to buffet_path(@buffet.id), notice: 'Buffet atualizado com sucesso!'
+
+      else    
+          flash.now[:notice] = 'Não foi possível atualizar o buffet'
+          render 'edit'
+      end
+    end
+
     private
 
     def buffet_params
@@ -33,6 +51,13 @@ class BuffetsController < ApplicationController
     def ensure_buffet_owner
       unless current_user.is_buffet_owner?
         redirect_to root_path, alert: 'Você não possui um buffet.'
+      end
+    end
+
+    def authorize_owner!
+      @buffet = Buffet.find(params[:id])
+      unless @buffet.user == current_user
+        redirect_to buffet_path(@buffet), alert: 'Você não tem permissão para editar esse buffet.'
       end
     end
 
