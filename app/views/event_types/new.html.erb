@@ -1,0 +1,57 @@
+<h1> Cadastrar Tipo de Evento </h1>
+
+<%= form_with(model:@event_type) do |f| %>
+
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.label :description %>
+      <%= f.text_field :description %>
+    </div>
+
+    <div>
+      <%= f.label :min_guests %>
+      <%= f.number_field :min_guests %>
+    </div>
+
+    <div>
+      <%= f.label :max_guests %>
+      <%= f.number_field :max_guests %>
+    </div>
+
+    <div>
+      <%= f.label :duration_minutes %> 
+      <%= f.number_field :duration_minutes %>
+    </div>
+
+    <div>
+      <%= f.label :menu_description %>
+      <%= f.text_field :menu_description %>
+    </div>
+    
+    <div>
+      <%= f.label :alcohol_included %>
+      <%= f.check_box :alcohol_included %>
+    </div>
+
+    <div>
+      <%= f.label :decoration_included %>
+      <%= f.check_box :decoration_included %>
+    </div>
+
+    <div>
+      <%= f.label :parking_available %>
+      <%= f.check_box :parking_available %>
+    </div>
+
+    <div>
+      <%= f.label :location_type %>
+      <%= f.select :location_type, [['No local', 'on_site'], ['Em outro local', 'off_site']], {}, { class: 'form-control' } %>
+    </div>
+
+    <%= f.submit 'Criar tipo de evento' %>
+
+<% end %>

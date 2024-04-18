@@ -1,0 +1,17 @@
+pt-BR:
+  activerecord:
+    models:
+      event_type: 'Tipo de evento'
+    attributes:
+      event_type:
+        name: "Nome"
+        description: "Descrição"
+        min_guests: "Quantidade mínima de convidados"
+        max_guests: "Quantidade máxima de convidados"
+        duration_minutes: "Duração em minutos"
+        menu_description: "Descrição do Menu"
+        alcohol_included: "Inclui bebidas alcoólicas"
+        decoration_included: "Inclui decoração"
+        parking_available: "Inclui serviço de estacionamento ou Valet"
+        location_type: "Local do evento"
+        

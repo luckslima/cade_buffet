@@ -7,12 +7,33 @@
         <dd>CNPJ:</dd>
         <dt><%= @buffet.registration_number %></dt>
         <dd>Localização:</dd>
-        <dt><%= @buffet.city %> | <%= @buffet.state %>% </dt>
+        <dt><%= @buffet.city %> | <%= @buffet.state %> </dt>
         <dd>CEP:</dd>
         <dt><%= @buffet.zip_code %></dt>
     </dl>
 </div>
 
+<h2> Eventos Realizados: </h2>
+
+<% if @buffet.event_types.any? %>
+  <ul>
+    <% @buffet.event_types.each do |event_type| %>
+      <li>
+        <strong><%= event_type.name %>:</strong> <%= event_type.description %>
+        <br>
+        Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %>
+        <br>
+        Duração: <%= event_type.duration_minutes / 60 %> horas
+        <br>
+        Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum tipo de evento cadastrado.</p>
+<% end %>
+
 <% if current_user == @buffet.user %>
-    <%=link_to('Atualizar Buffet', edit_buffet_path(@buffet.id))%>
+    <%=link_to('Atualizar Buffet', edit_buffet_path(@buffet.id))%> |
+    <%=link_to('Cadastrar tipo de evento', new_event_type_path)%>
 <% end %>
