@@ -1,0 +1,25 @@
+<h1> Cadastrar preço de Tipo de evento </h1>
+
+<%= form_with(model: [@event_type, @event_price]) do |f|%>
+
+    <div>
+      <%= f.label :base_price %>
+      <%= f.number_field :base_price %>
+    </div>
+
+    <div>
+      <%= f.label :additional_guest_price %>
+      <%= f.number_field :additional_guest_price %>
+    </div>
+
+    <div>
+      <%= f.label :extra_hour_price %>
+      <%= f.number_field :extra_hour_price %>
+    </div>
+
+    <%= f.label :price_for_weekend %><br />
+    <%= f.check_box :price_for_weekend %>
+
+    <%= f.submit 'Cadastrar preço'%>
+
+<% end %>

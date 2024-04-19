@@ -21,8 +21,31 @@
     </dl>
 </div>
 
+<h4> Preços </h4>
+
+<% if @event_type.event_prices.any? %>
+
+    <ul>
+    <% @event_type.event_prices.each do |event_price| %>
+      <li>
+        <strong><%= event_price.price_for_weekend ? 'Preço para final de semana' : 'Preço para dias de semana' %>:</strong>
+        <br>
+        Preço base: R$ <%= event_price.base_price %>
+        <br>
+        Valor adicional por pessoa: R$ <%= event_price.additional_guest_price %> 
+        <br>
+        Valor por hora extra: R$ <%= event_price.extra_hour_price %>
+      </li>
+    <% end %>
+   </ul>
+    
+<% else %>
+  <p>Nenhum preço cadastrado para esse tipo de evento.</p>  
+<% end %>
+
 <% if current_user == @event_type.buffet.user %>
-    <%=link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id))%>
+    <%=link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id))%> |
+    <%=link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id))%>
 <% end %>
 
 
