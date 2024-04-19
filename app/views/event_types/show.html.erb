@@ -1,0 +1,28 @@
+<h2> <%= @event_type.name %> </h2>
+
+<div>
+    <dl>
+        <dd>Descrição:</dd>
+        <dt><%= @event_type.description %></dt>
+        <dd>Quantidade de convidados:</dd>
+        <dt>Mínimo: <%= @event_type.min_guests %> convidados | Máximo: <%= @event_type.min_guests %> convidados</dt>
+        <dd>Duração Máxima:</dd>
+        <dt><%= @event_type.duration_minutes / 60 %> horas</dt>
+        <dd>Descrição do Menu:</dd>
+        <dt><%= @event_type.menu_description %></dt>
+        <dd>Bebidas Alcoólicas:</dd>
+        <dt><%= @event_type.alcohol_included ? 'Incluso.' : 'Não incluso.' %></dt>   
+        <dd>Serviço de decoração:</dd>
+        <dt><%= @event_type.decoration_included ? 'Incluso.' : 'Não incluso.' %></dt>    
+        <dd>Estacionamento e manobrista:</dd>
+        <dt><%= @event_type.parking_available ? 'Incluso.' : 'Não incluso.' %></dt>   
+        <dd>Local do evento:</dd>
+        <dt><%= @event_type.parking_available == 'on_site' ? 'No local' : 'Em outro local' %></dt>  
+    </dl>
+</div>
+
+<% if current_user == @event_type.buffet.user %>
+    <%=link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id))%>
+<% end %>
+
+

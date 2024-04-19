@@ -19,7 +19,7 @@
   <ul>
     <% @buffet.event_types.each do |event_type| %>
       <li>
-        <strong><%= event_type.name %>:</strong> <%= event_type.description %>
+        <strong><%= link_to(event_type.name, event_type_path(event_type))%>:</strong> <%= event_type.description %>
         <br>
         Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %>
         <br>

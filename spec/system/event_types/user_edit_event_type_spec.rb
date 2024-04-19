@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário dono de buffet cadastra tipo de evento' do
+describe 'Usuário dono de buffet atualiza tipo de evento' do
 
     it 'com sucesso' do
         #Arrange
@@ -9,27 +9,29 @@ describe 'Usuário dono de buffet cadastra tipo de evento' do
                                 phone: "71-85642014", email: "pattybuffet@email.com", address: "Av oceânica, 100", district: "Barra", 
                                 city: "Salvador", state: "Bahia", zip_code: "40527-700", description: "Buffet para casamentos e festas de 15 anos", 
                                 payment_methods: "Boleto e Cartão", user: user)
+        event_type = EventType.create!(name: 'Halloween', description: 'Doces e deliciosas travessuras', min_guests: 50, max_guests: 500, 
+                                       duration_minutes: 300, menu_description: 'Massas, saladas e Sobremesas', alcohol_included: true, 
+                                       parking_available: true, location_type: 'on_site', buffet: buffet)
 
         #Act
         login_as(user)
         visit root_path
         click_on 'Meu buffet'
-        click_on 'Cadastrar tipo de evento'
+        click_on 'Halloween'
+        click_on 'Atualizar tipo de evento'
         fill_in "Nome", with: "Casamento"
         fill_in "Descrição", with: "Temos o melhor buffet para casamentos."
-        fill_in "Quantidade mínima de convidados", with: '50'
-        fill_in "Quantidade máxima de convidados", with: '500'
-        fill_in "Duração em minutos", with: 5 #Lembrete: Alterar no formulário para horas e depois implementar a lógica de conversão
+        fill_in "Duração em minutos", with: '360' #Lembrete: Alterar no formulário para horas e depois implementar a lógica de conversão
         fill_in "Descrição do Menu", with: "Massas, carnes e sobremesas variadas"
-        check "Inclui bebidas alcoólicas"
-        check "Inclui decoração"
-        select 'Em outro local', from: 'Local do evento'
-        click_on 'Criar Tipo de evento'
+        click_on 'Atualizar Tipo de evento'
 
         #Assert
-        expect(current_path).to eq buffet_path(buffet.id)
+        expect(current_path).to eq event_type_path(buffet.event_types.last)
         expect(page).to have_content("Casamento")
         expect(page).to have_content("Temos o melhor buffet para casamentos.")
+        expect(page).to have_content("6 horas")
+        expect(page).to have_content("Massas, carnes e sobremesas variadas")
+
 
     end
 
