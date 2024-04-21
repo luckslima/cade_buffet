@@ -36,6 +36,11 @@
         <br>
         Valor por hora extra: R$ <%= event_price.extra_hour_price %>
       </li>
+
+      <% if current_user == @event_type.buffet.user %>
+        <%=link_to('Atualizar preço', edit_event_type_event_price_path(event_price.id))%> 
+      <% end %>
+
     <% end %>
    </ul>
     
@@ -45,7 +50,7 @@
 
 <% if current_user == @event_type.buffet.user %>
     <%=link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id))%> |
-    <%=link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id))%>
+    <%=link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id))%> |
 <% end %>
 
 
