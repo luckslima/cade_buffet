@@ -14,31 +14,24 @@
     <header>
       <h1> Cadê Buffet? </h1>
       <nav>
-        <% if user_signed_in? %>
-
+        
+       <% if user_signed_in? %>
           <% if current_user.is_buffet_owner %>
-
-            <% if current_user.buffet.nil? %>
-              <%= current_user.name %> |
-              <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-            <% else %>  
+            <% if current_user.buffet %>
               <%= link_to 'Meu buffet', buffet_path(current_user.buffet) %> |
-              <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+            <% else %>
+              <%= link_to 'Cadastrar Buffet', new_buffet_path %> |
             <% end %>
-
+            <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
           <% else %>
-
             <%= current_user.name %> |
             <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-            
           <% end %>
-
         <% else %>
-
           <%= link_to 'Cadastrar', new_user_registration_path %> |
           <%= link_to 'Entrar', new_user_session_path %> |
-
         <% end %>
+
       </nav>
     </header>
     <main>

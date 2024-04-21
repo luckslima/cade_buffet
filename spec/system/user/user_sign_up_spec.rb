@@ -2,6 +2,17 @@ require 'rails_helper'
 
 describe 'Usuário se cadastra' do
 
+    it 'a partir do menu' do
+        #Arrange
+
+        #Act
+        visit root_path
+
+        #Assert 
+        expect(page).to have_content('Cadastrar')
+
+    end
+
     it 'com sucesso' do
         #Arrange
 
