@@ -1,0 +1,13 @@
+<h3>Encontre o seu Buffet dos sonhos</h3>
+
+<ul>
+    <% @buffets.each do |b| %>
+        
+        <li>
+            <strong><%= link_to(b.brand_name, buffet_path(b))%></strong>
+            <br>
+            <%= b.city %> | <%= b.state%>
+        </li>
+    
+    <% end %>
+</ul>

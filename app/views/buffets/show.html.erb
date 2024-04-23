@@ -1,15 +1,25 @@
 <h1> <%= @buffet.brand_name %> </h1>
 
+<P><%= @buffet.description %></P>
+
 <div>
     <dl>
-        <dd>Razão Social:</dd>
-        <dt><%= @buffet.corporate_name %></dt>
-        <dd>CNPJ:</dd>
-        <dt><%= @buffet.registration_number %></dt>
+        <% if current_user == @buffet.user %>
+          <dd>Razão Social:</dd>
+          <dt><%= @buffet.corporate_name %></dt>
+        <% end %>
+        <dd>Telefone:</dd>
+        <dt><%= @buffet.phone %></dt>
+        <dd>E-mail:</dd>
+        <dt><%= @buffet.email %></dt>
         <dd>Localização:</dd>
-        <dt><%= @buffet.city %> | <%= @buffet.state %> </dt>
+        <dt><%= @buffet.address %>, <%= @buffet.city %> | <%= @buffet.state %> </dt>
         <dd>CEP:</dd>
         <dt><%= @buffet.zip_code %></dt>
+        <dd>CNPJ:</dd>
+        <dt><%= @buffet.registration_number %></dt>
+        <dd>Meios de Pagamento:</dd>
+        <dt><%= @buffet.payment_methods %></dt>
     </dl>
 </div>
 
