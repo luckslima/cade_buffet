@@ -3,6 +3,19 @@ class BuffetsController < ApplicationController
   before_action :ensure_buffet_owner, only: [:new, :create, :edit, :update]
   before_action :authorize_owner!, only: [:edit, :update]
 
+    def search
+      @query = params[:query]
+      
+      @buffets = Buffet.left_joins(:event_types)
+                      .where("buffets.brand_name LIKE :query OR 
+                              buffets.city LIKE :query OR 
+                              event_types.name LIKE :query", query: "%#{@query}%")
+                      .distinct
+                      .order(:brand_name)
+    end
+  
+  
+
     def new
         @buffet = Buffet.new()
     end

@@ -1,0 +1,15 @@
+<h1>Resultados da busca por: <%=@query %></h1>
+
+<p><%= @buffets.count %> <%= @buffets.model_name.human(count: @buffets.count).downcase %> <%= I18n.t(:found, count: @buffets.count) %></p>
+
+<ul>
+    <% @buffets.each do |b| %>
+        
+        <li>
+            <strong><%= link_to(b.brand_name, buffet_path(b))%></strong>
+            <br>
+            <%= b.city %> | <%= b.state%>
+        </li>
+    
+    <% end %>
+</ul>
