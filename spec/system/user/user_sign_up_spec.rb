@@ -20,6 +20,7 @@ describe 'Usuário se cadastra' do
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Nome', with: 'Maria'
+        fill_in 'CPF', with: '73433421340'
         fill_in 'E-mail', with: 'maria@email.com'
         fill_in 'Senha', with: 'maria123'
         fill_in 'Confirme sua senha', with: 'maria123'
@@ -39,6 +40,7 @@ describe 'Usuário se cadastra' do
         visit root_path
         click_on 'Cadastrar'
         fill_in 'Nome', with: 'Maria'
+        fill_in 'CPF', with: '73433421340'
         fill_in 'E-mail', with: 'maria@email.com'
         fill_in 'Senha', with: 'maria123'
         fill_in 'Confirme sua senha', with: 'maria123'

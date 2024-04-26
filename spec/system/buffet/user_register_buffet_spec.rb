@@ -3,7 +3,7 @@ require "rails_helper"
 describe 'Usuário registra um buffet' do 
     it 'a partir da tela inical' do
         #Arrange
-        user = User.create!(name: 'Patricia', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
 
         #Act
         login_as(user)
@@ -26,7 +26,7 @@ describe 'Usuário registra um buffet' do
 
     it 'com sucesso' do
         #Arrange
-        user = User.create!(name: 'Patricia', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
         
         #Act
         login_as(user)
@@ -53,7 +53,7 @@ describe 'Usuário registra um buffet' do
 
     it 'com dados incompletos' do
         #Arrange
-        user = User.create!(name: 'Patricia', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
 
         #Act
         login_as(user)

@@ -4,7 +4,7 @@ describe 'Usuário se autentica' do
 
     it 'com sucesso' do
         #Arrange 
-        User.create!(name: 'João', email: 'joao@email.com', password: 'password', is_buffet_owner: false)
+        User.create!(name: 'João', cpf:'92915079200', email: 'joao@email.com', password: 'password', is_buffet_owner: false)
 
         #Act
         visit root_path
@@ -27,7 +27,7 @@ describe 'Usuário se autentica' do
 
     it 'e faz logout' do
         #Arrange 
-        User.create!(name: 'João', email: 'joao@email.com', password: 'password', is_buffet_owner: false)
+        User.create!(name: 'João', cpf:'92915079200', email: 'joao@email.com', password: 'password', is_buffet_owner: false)
 
         #Act
         visit root_path
