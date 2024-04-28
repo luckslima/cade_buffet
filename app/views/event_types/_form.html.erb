@@ -50,6 +50,11 @@
       <%= f.select :location_type, [['No local', 'on_site'], ['Em outro local', 'off_site']], {}, { class: 'form-control' } %>
     </div>
 
+    <%= f.label :image %>
+    <%= f.file_field :image %>
+
+    <br>
+
     <%= f.submit %>
 
 <% end %>

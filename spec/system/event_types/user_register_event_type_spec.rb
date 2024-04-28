@@ -24,12 +24,14 @@ describe 'Usuário dono de buffet cadastra tipo de evento' do
         check "Inclui bebidas alcoólicas"
         check "Inclui decoração"
         select 'Em outro local', from: 'Local do evento'
+        attach_file 'Imagem', Rails.root.join('spec', 'support', 'casamento.jpg')
         click_on 'Criar Tipo de evento'
 
         #Assert
         expect(current_path).to eq buffet_path(buffet.id)
         expect(page).to have_content("Casamento")
         expect(page).to have_content("Temos o melhor buffet para casamentos.")
+        expect(EventType.last.image).to be_attached
 
     end
 

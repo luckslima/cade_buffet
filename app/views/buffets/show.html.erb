@@ -37,6 +37,9 @@
         <br>
         Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
       </li>
+      <% if event_type.image.attached? %>
+        <%= image_tag event_type.image, class: 'circular-image' %>
+      <% end %>
     <% end %>
   </ul>
 <% else %>
@@ -47,3 +50,4 @@
     <%=link_to('Atualizar Buffet', edit_buffet_path(@buffet.id))%> |
     <%=link_to('Cadastrar tipo de evento', new_event_type_path)%>
 <% end %>
+

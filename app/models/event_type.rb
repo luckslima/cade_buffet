@@ -3,4 +3,5 @@ class EventType < ApplicationRecord
             :menu_description, :location_type, presence: true
   belongs_to :buffet
   has_many :event_prices, dependent: :destroy
+  has_one_attached :image
 end

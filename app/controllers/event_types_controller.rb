@@ -44,7 +44,7 @@ class EventTypesController < ApplicationController
     private
 
     def event_type_params
-        params.require(:event_type).permit(:name, :description, :min_guests, :max_guests, :menu_description, :alcohol_included, :decoration_included, :parking_available, :location_type, :duration_minutes)
+        params.require(:event_type).permit(:name, :description, :min_guests, :max_guests, :menu_description, :alcohol_included, :decoration_included, :parking_available, :location_type, :duration_minutes, :image)
     end
 
     def authorize_owner!

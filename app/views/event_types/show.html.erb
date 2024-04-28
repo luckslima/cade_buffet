@@ -1,5 +1,9 @@
 <h2> <%= @event_type.name %> </h2>
 
+<% if @event_type.image.attached? %>
+  <%= image_tag @event_type.image, class: 'resized-image' %>
+<% end %>
+
 <div>
     <dl>
         <dd>Descrição:</dd>
