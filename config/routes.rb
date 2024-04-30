@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
   resources :event_types, only: [:show, :new, :create, :edit, :update] do
     resources :event_prices, only: [:new, :create, :edit, :update]
+    resources :orders, only: [:new, :create]
   end
+
+  resources :orders, only: [:index, :show]
 
 end

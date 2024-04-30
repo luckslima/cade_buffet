@@ -1,0 +1,51 @@
+<h1><%= current_user.is_buffet_owner ? 'Pedidos' : 'Meus Pedidos' %></h1>
+
+<% if current_user.is_buffet_owner %>
+  <h2>Pedidos Pendentes</h2>
+  <% if @pending_orders.any? %>
+    <ul>
+      <% @pending_orders.each do |order| %>
+        <li>
+          <%= link_to "Pedido #{order.code}", order_path(order) %>
+          - Evento: <%= order.event_type.name %>
+          - Data: <%= I18n.localize(order.event_date) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Não há pedidos pendentes.</p>
+  <% end %>
+
+  <h2>Outros Pedidos</h2>
+  <% if @other_orders.any? %>
+    <ul>
+      <% @other_orders.each do |order| %>
+        <li>
+          <%= link_to "Pedido #{order.code}", order_path(order) %>
+          - Evento: <%= order.event_type.name %>
+          - Data: <%= I18n.localize(order.event_date) %>
+          - Status: <%= I18n.translate(order.status) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Não há outros pedidos.</p>
+  <% end %>
+
+<% else %>
+  <% if @orders.any? %>
+    <ul>
+      <% @orders.each do |order| %>
+        <li>
+          <%= link_to "Pedido #{order.code}", order_path(order) %>
+          - Buffet: <%= order.buffet.brand_name %>
+          - Evento: <%= order.event_type.name %>
+          - Data: <%= I18n.localize(order.event_date) %>
+          - Status: <%= I18n.translate(order.status) %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Não há pedidos para mostrar.</p>
+  <% end %>
+<% end %>

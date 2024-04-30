@@ -1,0 +1,11 @@
+<h1>Detalhes do Pedido '<%= @order.code %>'</h1>
+
+<p><strong><%= Order.human_attribute_name(:buffet) %>:</strong> <%= @order.buffet.brand_name %></p>
+<p><strong><%= Order.human_attribute_name(:event_type) %>:</strong> <%= @order.event_type.name %></p>
+<p><strong><%= Order.human_attribute_name(:event_date) %>:</strong> <%= I18n.localize(@order.event_date) %></p>
+<p><strong><%= Order.human_attribute_name(:number_of_guests) %>:</strong> <%= @order.number_of_guests %></p>
+<p><strong><%= Order.human_attribute_name(:details) %>:</strong> <%= @order.details %></p>
+<% if @order.event_type.location_type == 'off_site' %>
+  <p><strong><%= Order.human_attribute_name(:address) %>:</strong> <%= @order.address %></p>    
+<% end %>
+<p><strong><%= Order.human_attribute_name(:status) %>:</strong> <%= I18n.translate(@order.status) %></p>

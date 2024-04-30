@@ -1,0 +1,18 @@
+pt-BR:
+  pending: "Aguardando avaliação do buffet"
+  approved: "Aprovado pelo Buffet"
+  confirmed: "Confirmado pelo Cliente"
+  canceled: "Cancelado"
+  activerecord:
+    models:
+      order: 'Pedido'
+    attributes:
+      order: 
+        number_of_guests: "Número estimado de convidados"
+        event_date: "Data do evento"
+        address: "Endereço do evento"
+        status: "Situação do pedido"
+        details: "Mais detalhes"
+        event_type: "Tipo de evento"
+        buffet: "Buffet"
+        

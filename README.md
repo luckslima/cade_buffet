@@ -30,6 +30,8 @@
 - [X] Listagem de Buffets cadastrados na página principal 
 - [X] Busca por um Buffet 
 - [X] Ver tipos de eventos que um Buffet oferece e seus preços 
+- [X] Um Cliente pode contratar um Buffet criando um pedido para um evento
+- [X] Clientes e Donos de Buffet podem ver e acessar pedidos feitos
 
 ## Como Rodar a Aplicação? :arrow_forward:
 
@@ -44,6 +46,14 @@
 - Instale as dependencias:
 
   > bundle install 
+
+- Rode as migrações:
+
+  > rails db:migrate 
+
+- Popule o banco de dados (Recomendável)
+
+  > rails db:seed
 
 - Execute a aplicação: 
 

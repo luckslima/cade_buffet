@@ -57,4 +57,10 @@
     <%=link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id))%> |
 <% end %>
 
+<% if user_signed_in? %>
+  <% if !current_user.is_buffet_owner %>
+    <%=link_to('Criar Pedido para evento', new_event_type_order_path(@event_type.id))%>  
+  <% end %>
+<% end %>
+
 

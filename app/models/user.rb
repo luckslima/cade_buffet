@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validate :cpf_valido
          
   has_one :buffet, dependent: :destroy       
+  has_many :orders
 
   private
 
