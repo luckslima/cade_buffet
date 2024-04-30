@@ -9,3 +9,14 @@
   <p><strong><%= Order.human_attribute_name(:address) %>:</strong> <%= @order.address %></p>    
 <% end %>
 <p><strong><%= Order.human_attribute_name(:status) %>:</strong> <%= I18n.translate(@order.status) %></p>
+
+<% if current_user.is_buffet_owner && @orders_same_day.any? %>
+  <div class="alert alert-warning">
+    <strong>Aviso:</strong> Existem outros pedidos para a mesma data.
+    <% @orders_same_day.each do |order| %>
+      <p>
+        Pedido <%= order.code %> - <%= order.event_type.name %>
+      </p>
+    <% end %>
+  </div>
+<% end %>

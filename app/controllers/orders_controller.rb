@@ -25,6 +25,11 @@ class OrdersController < ApplicationController
     def show
         @order = Order.find(params[:id])
         authorize @order
+
+        if current_user.is_buffet_owner
+            @orders_same_day = Order.where(buffet_id: @order.buffet_id, event_date: @order.event_date)
+                                          .where.not(id: @order.id)
+        end
     end
 
     def index
