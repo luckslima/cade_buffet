@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :buffet
   belongs_to :user
   belongs_to :event_type
+  has_one :order_budget
 
   enum status: { pending: 0, approved: 1, confirmed: 2, cancelled: 3 }
 

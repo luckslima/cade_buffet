@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :orders, only: [:new, :create]
   end
 
-  resources :orders, only: [:index, :show]
+  resources :orders, only: [:index, :show] do
+    resources :order_budgets, only: [:new, :create] 
+  end
 
 end

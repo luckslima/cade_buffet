@@ -10,13 +10,31 @@
 <% end %>
 <p><strong><%= Order.human_attribute_name(:status) %>:</strong> <%= I18n.translate(@order.status) %></p>
 
-<% if current_user.is_buffet_owner && @orders_same_day.any? %>
-  <div class="alert alert-warning">
-    <strong>Aviso:</strong> Existem outros pedidos para a mesma data.
-    <% @orders_same_day.each do |order| %>
-      <p>
-        Pedido <%= order.code %> - <%= order.event_type.name %>
-      </p>
-    <% end %>
-  </div>
+<% if @order.order_budget.present? %>
+  <h3>Orçamento para o pedido:</h3>
+  <p><strong>Taxa Extra:</strong> <%= number_to_currency(@order.order_budget.extra_fee, unit: "R$", separator: ",", delimiter: ".") %></p>
+  <p><strong>Desconto:</strong> <%= number_to_currency(@order.order_budget.discount, unit: "R$", separator: ",", delimiter: ".") %></p>
+  <p><strong>Valor final:</strong> <%= number_to_currency(@order.order_budget.final_price, unit: "R$", separator: ",", delimiter: ".") %></p>
+  <p><strong>Observações:</strong> <%= @order.order_budget.description %></p>
+  <p><strong>Orçamento válido até:</strong> <%= I18n.localize(@order.order_budget.valid_until) %></p>
 <% end %>
+
+<% if current_user.is_buffet_owner %>
+
+  <% if @order.pending? %>
+    <%= link_to 'Gerar Orçamento', new_order_order_budget_path(order_id: @order.id) %>
+  <% end %>
+
+  <% if @orders_same_day.any? %>
+    <div class="alert alert-warning">
+      <strong>Aviso:</strong> Existem outros pedidos para a mesma data.
+      <% @orders_same_day.each do |order| %>
+        <p>
+          Pedido <%= order.code %> - <%= order.event_type.name %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>
+
+<% end %>
+

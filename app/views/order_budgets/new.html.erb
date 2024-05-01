@@ -1,0 +1,37 @@
+<h1>Orçamento para o pedido <%= @order.code %></h1>
+
+<%= form_with(model: [@order, @order_budget]) do |f| %>
+
+    <div>
+        <p><strong>Valor base:</strong> R$ <%= @base_price %> </p>
+    </div>
+
+    <div>
+        <%= f.label :extra_fee, 'Taxa extra (R$)' %>
+        <%= f.number_field :extra_fee, step: '0.01' %>
+    </div>
+
+    <div>
+        <%= f.label :discount, 'Desconto (R$)' %>
+        <%= f.number_field :discount, step: '0.01' %>
+    </div>
+
+    <div>
+        <%= f.label :payment_method, 'Meio de Pagamento' %>
+        <%= f.text_field :payment_method %>
+    </div>
+
+    <div>
+      <%= f.label :description, 'Observações' %> <br>
+      <%= f.text_area :description %>
+    </div>
+
+    <div>
+        <%= f.label :valid_until, 'Orçamento válido até' %>
+        <%= f.date_field :valid_until %>
+    </div>
+
+
+    <%= f.submit 'Aprovar Pedido' %>
+
+<% end %>
