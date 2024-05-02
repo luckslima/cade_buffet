@@ -32,6 +32,8 @@
 - [X] Ver tipos de eventos que um Buffet oferece e seus preços 
 - [X] Um Cliente pode contratar um Buffet criando um pedido para um evento
 - [X] Clientes e Donos de Buffet podem ver e acessar pedidos feitos
+- [X] Donos de Buffet podem aprovar pedidos feitos por clientes.
+- [X] Clientes podem confirmar pedidos aprovados por Donos de Buffet, desde que estejam dentro do prazo.
 
 ## Como Rodar a Aplicação? :arrow_forward:
 

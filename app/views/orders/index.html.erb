@@ -41,7 +41,12 @@
           - Buffet: <%= order.buffet.brand_name %>
           - Evento: <%= order.event_type.name %>
           - Data: <%= I18n.localize(order.event_date) %>
+          <% if order.approved? %>
           - Status: <%= I18n.translate(order.status) %>
+          <p>Aguardando sua confirmação!</p>     
+          <% else %>
+          - Status: <%= I18n.translate(order.status) %>       
+          <% end %>
         </li>
       <% end %>
     </ul>

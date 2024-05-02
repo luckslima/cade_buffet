@@ -1,4 +1,7 @@
 class OrderBudgetsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :ensure_buffet_owner, only: [:new, :create]
+  before_action :authorize_owner!, only: [:new, :create]
 
     def new
         @order = Order.find(params[:order_id])  
@@ -29,6 +32,21 @@ class OrderBudgetsController < ApplicationController
         else
           flash.now[:notice] = 'Não foi possível aprovar o pedido.'
           render :new
+        end
+      end
+
+      private
+
+      def ensure_buffet_owner
+        unless current_user.is_buffet_owner?
+          redirect_to root_path, alert: 'Você não possui um buffet.'
+        end
+      end
+  
+      def authorize_owner!
+        @order = Order.find(params[:order_id])
+        unless @order.buffet.user == current_user
+          redirect_to root_path, alert: 'Você não tem permissão para gerar esse orçamento.'
         end
       end
 

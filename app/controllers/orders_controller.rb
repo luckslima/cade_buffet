@@ -46,6 +46,19 @@ class OrdersController < ApplicationController
         end
     end
 
+    def confirmed
+        @order = Order.find(params[:id])
+    
+        if Date.today <= @order.order_budget.valid_until
+            @order.confirmed!
+            redirect_to order_path(@order), notice: 'Pedido confirmado com sucesso!'
+        else
+            redirect_to order_path(@order), alert: 'O prazo para confirmação deste pedido expirou.'
+        end
+
+    end    
+
+
     private
 
     def order_params
