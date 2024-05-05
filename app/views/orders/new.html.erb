@@ -26,6 +26,11 @@
       <%= f.text_area :details %>
     </div>
 
+    <div>
+      <%= f.label :payment_method_id, "Método de Pagamento" %>
+      <%= f.collection_select :payment_method_id, @event_type.buffet.payment_methods, :id, :name %>
+    </div>
+
     <%= f.submit %>
 
 <% end %>

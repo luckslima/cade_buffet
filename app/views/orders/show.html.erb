@@ -4,6 +4,7 @@
 <p><strong><%= Order.human_attribute_name(:event_type) %>:</strong> <%= @order.event_type.name %></p>
 <p><strong><%= Order.human_attribute_name(:event_date) %>:</strong> <%= I18n.localize(@order.event_date) %></p>
 <p><strong><%= Order.human_attribute_name(:number_of_guests) %>:</strong> <%= @order.number_of_guests %></p>
+<p><strong><%= Order.human_attribute_name(:payment_method) %>:</strong> <%= @order.payment_method.name %></p>
 <p><strong><%= Order.human_attribute_name(:details) %>:</strong> <%= @order.details %></p>
 <% if @order.event_type.location_type == 'off_site' %>
   <p><strong><%= Order.human_attribute_name(:address) %>:</strong> <%= @order.address %></p>    
@@ -12,6 +13,7 @@
 
 <% if @order.order_budget.present? %>
   <h3>Orçamento para o pedido:</h3>
+  <p><strong>Meio de pagamento:</strong> <%= @order.order_budget.payment_method.name %></p>
   <p><strong>Taxa Extra:</strong> <%= number_to_currency(@order.order_budget.extra_fee, unit: "R$", separator: ",", delimiter: ".") %></p>
   <p><strong>Desconto:</strong> <%= number_to_currency(@order.order_budget.discount, unit: "R$", separator: ",", delimiter: ".") %></p>
   <p><strong>Valor final:</strong> <%= number_to_currency(@order.order_budget.final_price, unit: "R$", separator: ",", delimiter: ".") %></p>

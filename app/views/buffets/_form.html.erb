@@ -56,8 +56,11 @@
     </div>
 
     <div>
-        <%= f.label :payment_methods %>
-        <%= f.text_field :payment_methods %>
+        <%= f.label :payment_methods, "Meios de Pagamento" %><br>
+        <% PaymentMethod.all.each do |method| %>
+        <%= check_box_tag "buffet[payment_method_ids][]", method.id, @buffet.payment_methods.include?(method), id: "buffet_payment_method_ids_#{method.id}" %>
+        <%= label_tag "buffet_payment_method_ids_#{method.id}", method.name %><br>
+        <% end %>
     </div>
 
     <%= f.hidden_field :user_id, value: current_user.id %>

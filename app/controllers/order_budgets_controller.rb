@@ -7,11 +7,12 @@ class OrderBudgetsController < ApplicationController
         @order = Order.find(params[:order_id])  
         @order_budget = OrderBudget.new()
         @base_price = @order.event_type.calculate_base_price(@order.event_date, @order.number_of_guests)
+        @payment_methods = @order.buffet.payment_methods
     end
 
     def create
         @order = Order.find(params[:order_id])
-        order_budget_params = params.require(:order_budget).permit(:valid_until, :payment_method, :extra_fee, :discount, :description)
+        order_budget_params = params.require(:order_budget).permit(:valid_until, :payment_method_id, :extra_fee, :discount, :description)
         
         extra_fee = order_budget_params[:extra_fee].present? ? order_budget_params[:extra_fee].gsub(',', '.').to_f : 0.0
         discount = order_budget_params[:discount].present? ? order_budget_params[:discount].gsub(',', '.').to_f : 0.0

@@ -19,7 +19,11 @@
         <dd>CNPJ:</dd>
         <dt><%= @buffet.registration_number %></dt>
         <dd>Meios de Pagamento:</dd>
-        <dt><%= @buffet.payment_methods %></dt>
+        <dt>
+          <% @buffet.payment_methods.each do |method| %>
+            <%= method.name %><%= "," unless method == @buffet.payment_methods.last %>
+          <% end %>
+        </dt>
     </dl>
 </div>
 

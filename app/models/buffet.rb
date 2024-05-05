@@ -4,4 +4,6 @@ class Buffet < ApplicationRecord
   validates :user_id, uniqueness: true
   belongs_to :user
   has_many :event_types, dependent: :destroy
+  has_many :payment_method_buffets
+  has_many :payment_methods, through: :payment_method_buffets
 end

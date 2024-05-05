@@ -3,10 +3,11 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :event_type
   has_one :order_budget
+  belongs_to :payment_method
 
   enum status: { pending: 0, approved: 1, confirmed: 2, cancelled: 3 }
 
-  validates :code, :number_of_guests, :event_date, presence: true
+  validates :number_of_guests, :event_date, presence: true
 
   before_validation :generate_code
 

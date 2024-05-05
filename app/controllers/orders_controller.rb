@@ -62,7 +62,7 @@ class OrdersController < ApplicationController
     private
 
     def order_params
-        params.require(:order).permit(:number_of_guests, :event_date, :address, :details)
+        params.require(:order).permit(:number_of_guests, :event_date, :address, :details, :payment_method_id)
     end
 
     def authorize(order)

@@ -4,6 +4,8 @@ describe 'Usuário registra um buffet' do
     it 'a partir da tela inical' do
         #Arrange
         user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        PaymentMethod.create!(name: "Boleto Bancário")
+        PaymentMethod.create!(name: "Cartão de Crédito")
 
         #Act
         login_as(user)
@@ -21,12 +23,16 @@ describe 'Usuário registra um buffet' do
         expect(page).to have_field('Cidade')
         expect(page).to have_field('CEP')
         expect(page).to have_field('Descrição')
-        expect(page).to have_field('Meios de Pagamento')
+        expect(page).to have_content('Meios de Pagamento')
+        expect(page).to have_content('Boleto Bancário')
+        expect(page).to have_content('Cartão de Crédito')
     end
 
     it 'com sucesso' do
         #Arrange
         user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        PaymentMethod.create!(name: "Boleto Bancário")
+        PaymentMethod.create!(name: "Cartão de Crédito")
         
         #Act
         login_as(user)
@@ -42,7 +48,8 @@ describe 'Usuário registra um buffet' do
         fill_in "Cidade", with: "Salvador"
         fill_in "CEP", with: "40527-700"
         fill_in "Descrição", with: "Buffet para casamentos e festas de 15 anos"
-        fill_in "Meios de Pagamento", with: "Boleto e Cartão"
+        check "Boleto Bancário"
+        check "Cartão de Crédito"
         click_on 'Criar Buffet'
 
         #Assert 
@@ -54,6 +61,8 @@ describe 'Usuário registra um buffet' do
     it 'com dados incompletos' do
         #Arrange
         user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        PaymentMethod.create!(name: "Boleto Bancário")
+        PaymentMethod.create!(name: "Cartão de Crédito")
 
         #Act
         login_as(user)
@@ -69,7 +78,8 @@ describe 'Usuário registra um buffet' do
         fill_in "Cidade", with: "Salvador"
         fill_in "CEP", with: "40527-700"
         fill_in "Descrição", with: "Buffet para casamentos e festas de 15 anos"
-        fill_in "Meios de Pagamento", with: "Boleto e Cartão"
+        check "Boleto Bancário"
+        check "Cartão de Crédito"
         click_on 'Criar Buffet'
 
         #Assert
