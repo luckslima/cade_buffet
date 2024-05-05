@@ -34,6 +34,7 @@
 - [X] Clientes e Donos de Buffet podem ver e acessar pedidos feitos
 - [X] Donos de Buffet podem aprovar pedidos feitos por clientes.
 - [X] Clientes podem confirmar pedidos aprovados por Donos de Buffet, desde que estejam dentro do prazo.
+- [X] Clientes e Donos de Buffet podem trocar mensagens dentro da página de detalhes de um pedido.
 
 ## Como Rodar a Aplicação? :arrow_forward:
 
@@ -53,7 +54,7 @@
 
   > rails db:migrate 
 
-- Popule o banco de dados (Recomendável)
+- Popule o banco de dados
 
   > rails db:seed
 
