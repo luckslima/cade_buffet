@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :orders, only: [:index, :show] do
     resources :order_budgets, only: [:new, :create] 
     post 'confirmed', on: :member
+    resources :messages, only: [:create]
   end
 
 end

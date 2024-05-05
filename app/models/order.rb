@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   belongs_to :event_type
   has_one :order_budget
   belongs_to :payment_method
+  has_many :messages, dependent: :destroy
 
   enum status: { pending: 0, approved: 1, confirmed: 2, cancelled: 3 }
 

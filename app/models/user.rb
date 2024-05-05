@@ -12,6 +12,7 @@ class User < ApplicationRecord
          
   has_one :buffet, dependent: :destroy       
   has_many :orders
+  has_many :messages
 
   private
 

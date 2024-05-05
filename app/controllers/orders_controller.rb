@@ -25,6 +25,7 @@ class OrdersController < ApplicationController
     def show
         @order = Order.find(params[:id])
         authorize @order
+        @message = Message.new()
 
         if current_user.is_buffet_owner
             @orders_same_day = Order.where(buffet_id: @order.buffet_id, event_date: @order.event_date)

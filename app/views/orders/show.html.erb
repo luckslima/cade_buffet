@@ -51,5 +51,28 @@
 
 <% end %>
 
+<h3>Mensagens</h3>
+<div>
+  <% if @order.messages.any? %>
+    
+    <% @order.messages.order(created_at: :desc).each do |message| %>
+      <p>
+        <strong><%= message.user.name %> (enviado em <%= message.created_at.strftime("%d/%m/%Y às %H:%M") %>):</strong>
+        <%= message.content %>
+      </p>
+    <% end %>
+
+  <% end %>
+</div>
+
+<h4>Enviar nova mensagem</h4>
+<%= form_with(model: [ @order, @message ], local: true) do |f| %>
+  <div>
+    <%= f.label :content, 'Nova Mensagem:' %> <br>
+    <%= f.text_area :content %>
+  </div>
+  <%= f.submit "Enviar" %>
+<% end %>
+
 
 

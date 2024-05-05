@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_03_031110) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_05_195704) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -85,6 +85,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_031110) do
     t.index ["buffet_id"], name: "index_event_types_on_buffet_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_messages_on_order_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "order_budgets", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "buffet_id", null: false
@@ -157,6 +167,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_03_031110) do
   add_foreign_key "buffets", "users"
   add_foreign_key "event_prices", "event_types"
   add_foreign_key "event_types", "buffets"
+  add_foreign_key "messages", "orders"
+  add_foreign_key "messages", "users"
   add_foreign_key "order_budgets", "buffets"
   add_foreign_key "order_budgets", "orders"
   add_foreign_key "order_budgets", "payment_methods"
