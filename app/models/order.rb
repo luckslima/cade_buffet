@@ -10,7 +10,7 @@ class Order < ApplicationRecord
 
   validates :number_of_guests, :event_date, presence: true
 
-  before_validation :generate_code
+  before_validation :generate_code, on: :create
 
   private
 

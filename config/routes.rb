@@ -18,4 +18,14 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
 
+  namespace :api do 
+    namespace :v1 do
+      resources :buffets, only: [:show, :index] do
+        resources :event_types, only: [:index] do
+          get 'availability', on: :member
+        end
+      end
+    end
+  end
+
 end
