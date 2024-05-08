@@ -1,4 +1,4 @@
-class Api::V1::EventTypesController < ActionController::API
+class Api::V1::EventTypesController < Api::V1::ApiController
     
     def index
         buffet = Buffet.find(params[:buffet_id])
