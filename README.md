@@ -63,3 +63,32 @@
   > rails server
 
 Pronto! Agora é possível acessar a aplicação através da rota http://localhost:3000/ :wink:
+
+## API Cadê Buffet?
+
+### Endpoints: 
+
+- 'GET /api/v1/buffets' 
+
+> Nesse endpoint é retornado uma listagem de todos os buffets cadastrados, com todos os seus atributos, no padrão Json. Nesse endpoint é possível passar um parametro de busca na url, chamado "search" para buscar um buffet pelo seu nome (brand_name). 
+
+- 'GET /api/v1/buffets/:id'
+
+> A partir desse endpoint é retornado um objeto Json com informações de um determinado buffet, com todos os seus atributos, exceto corporate_name (razão social) e registration_number (CNPJ)
+
+- 'GET /api/v1/buffets/:buffet_id/event_types'
+
+> A partir de um buffet é possível obter uma listagem de todos os tipos de eventos que ele realiza através desse endpoint.
+
+- 'GET /api/v1/buffets/:buffet_id/event_types/:id/availability'
+
+> Selecionando um tipo de evento de um buffet e informando uma data e quantidade de convidados, esse endpoint retorna um objeto contendo a disponibilidade do buffet em fazer o evento, e se positivo retorna também o valor estimado da realização do evento. Observe os exemplos de retorno abaixo:
+    
+    * Em caso de sucesso:
+
+      { available: true, estimated_price: 10000 }
+
+    * Em caso de falha:
+
+      { error: "motivo do erro ou da indisponibilidade" } 
+
