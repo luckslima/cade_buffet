@@ -17,7 +17,7 @@ class Api::V1::EventTypesController < Api::V1::ApiController
         end
 
         begin
-            event_date = Date.strptime(params[:date], '%d/%m/%Y')
+            event_date = Date.parse(params[:date])
         rescue ArgumentError
             return render status: 400, json: { error: 'Formato de data inválido' }
         end
@@ -26,7 +26,7 @@ class Api::V1::EventTypesController < Api::V1::ApiController
             return render status: 406, json: { error: "Quantidade de convidados fora do limite permitido." }
         end
 
-        if Order.where(buffet_id: buffet.id, event_type: event_type, event_date: event_date, status: :approved).exists?
+        if Order.where(buffet_id: buffet.id, event_type: event_type, event_date: event_date, status: [:approved, :confirmed]).exists?
             return render status: 406, json: { error: "Não há disponibilidade para a data escolhida." }
         end
 
