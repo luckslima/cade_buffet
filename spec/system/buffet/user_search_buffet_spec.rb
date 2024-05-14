@@ -164,8 +164,17 @@ describe 'Usuário visitante busca por um buffet' do
         click_on 'Buscar'
         
         #Assert 
+        within('#buffets > li:nth-child(1)') do
+            expect(page).to have_content "A Patty Buffet"
+        end
 
-        
+        within('#buffets > li:nth-child(2)') do
+            expect(page).to have_content "Buffet do João"
+        end
+
+        within('#buffets > li:nth-child(3)') do
+            expect(page).to have_content "Vitinho do Buffet"
+        end        
 
     end
 

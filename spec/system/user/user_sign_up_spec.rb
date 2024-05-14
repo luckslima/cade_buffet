@@ -18,7 +18,9 @@ describe 'Usuário se cadastra' do
 
         #Act
         visit root_path
-        click_on 'Cadastrar'
+        within("#nav-cadastrar") do
+            click_on 'Cadastrar'
+        end
         fill_in 'Nome', with: 'Maria'
         fill_in 'CPF', with: '73433421340'
         fill_in 'E-mail', with: 'maria@email.com'
@@ -38,7 +40,9 @@ describe 'Usuário se cadastra' do
 
         #Act
         visit root_path
-        click_on 'Cadastrar'
+        within("#nav-cadastrar") do
+            click_on 'Cadastrar'
+        end
         fill_in 'Nome', with: 'Maria'
         fill_in 'CPF', with: '73433421340'
         fill_in 'E-mail', with: 'maria@email.com'

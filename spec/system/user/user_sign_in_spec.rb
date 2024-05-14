@@ -8,7 +8,9 @@ describe 'Usuário se autentica' do
 
         #Act
         visit root_path
-        click_on 'Entrar'
+        within('#nav-entrar') do
+            click_on 'Entrar'
+        end
         fill_in 'E-mail', with: 'joao@email.com'
         fill_in 'Senha', with: 'password'
         within('#login-form') do
@@ -31,7 +33,9 @@ describe 'Usuário se autentica' do
 
         #Act
         visit root_path
-        click_on 'Entrar'
+        within('#nav-entrar') do
+            click_on 'Entrar'
+        end
         fill_in 'E-mail', with: 'joao@email.com'
         fill_in 'Senha', with: 'password'
         within('#login-form') do
