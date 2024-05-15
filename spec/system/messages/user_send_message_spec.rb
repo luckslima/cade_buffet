@@ -23,7 +23,9 @@ describe 'Usuário autenticado envia mensagem' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Pedidos'
+        within("#nav-pedidos") do
+            click_on 'Pedidos'
+        end
         click_on order.code
         fill_in 'Nova Mensagem:', with: 'Oi, tudo bem?'
         click_on 'Enviar'

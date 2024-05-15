@@ -19,13 +19,15 @@ describe 'Usuário atualiza um preço de um evento' do
         #Act
         login_as(user)
         visit root_path
-        click_on "Meu buffet"
+        within("#nav-meu-buffet") do
+            click_on "Meu buffet"
+        end
         click_on 'Halloween'
         click_on 'Atualizar preço'
         fill_in 'Preço base', with: '5000'
         fill_in 'Valor por hora extra', with: '500'
         uncheck 'Preço para final de semana'
-        click_on 'Atualizar Preço de tipo de evento'
+        click_on 'Salvar'
 
         #Assert
         expect(current_path).to eq event_type_path(event_type)

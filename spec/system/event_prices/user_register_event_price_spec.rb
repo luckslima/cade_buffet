@@ -17,14 +17,16 @@ describe 'Usuário cadastrado como dono de buffet registra um preço de tipo de 
         #Act
         login_as(user)
         visit root_path
-        click_on 'Meu buffet'
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
         click_on 'Halloween'
         click_on 'Cadastrar preço para evento'
         fill_in 'Preço base', with: '5000'
         fill_in 'Valor adicional por pessoa', with: '100'
         fill_in 'Valor por hora extra', with: '500'
         check 'Preço para final de semana'
-        click_on 'Criar Preço de tipo de evento'
+        click_on 'Salvar'
 
         #Assert
         expect(page).to have_content('Preços registrados com sucesso.')

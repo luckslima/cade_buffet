@@ -30,7 +30,6 @@ describe 'Usuário se cadastra' do
 
         #Assert
         expect(page).to have_content 'Boas vindas! Você realizou seu registro com sucesso.'
-        expect(page).to have_content 'Maria'
         expect(page).to have_content 'Sair'
 
     end

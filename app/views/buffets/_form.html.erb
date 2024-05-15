@@ -1,70 +1,84 @@
 <%= form_with(model: @buffet) do |f| %>
 
-    <div>
-        <%= f.label :brand_name %>
-        <%= f.text_field :brand_name %>
-    </div>
+  <div class="row">
 
-    <div>
-        <%= f.label :corporate_name %>
-        <%= f.text_field :corporate_name %>
-    </div>
+    <div class="col-md-6">
 
-    <div>
-        <%= f.label :registration_number %>
-        <%= f.text_field :registration_number %>
-    </div>
+      <div class="mb-3">
+        <%= f.label :brand_name, class: 'form-label' %>
+        <%= f.text_field :brand_name, class: 'form-control' %>
+      </div>
 
-    <div>
-        <%= f.label :phone %>
-        <%= f.text_field :phone %>
-    </div>
+      <div class="mb-3">
+        <%= f.label :corporate_name, class: 'form-label' %>
+        <%= f.text_field :corporate_name, class: 'form-control' %>
+      </div>
 
-    <div>
-        <%= f.label :email %>
-        <%= f.text_field :email %>
-    </div>
+      <div class="mb-3">
+        <%= f.label :registration_number, class: 'form-label' %>
+        <%= f.text_field :registration_number, class: 'form-control' %>
+      </div>
 
-    <div>
-        <%= f.label :address %>
-        <%= f.text_field :address %>
-    </div>
+      <div class="mb-3">
+        <%= f.label :phone, class: 'form-label' %>
+        <%= f.text_field :phone, class: 'form-control' %>
+      </div>
 
-    <div>
-        <%= f.label :district %>
-        <%= f.text_field :district %>
-    </div>
+      <div class="mb-3">
+        <%= f.label :email, class: 'form-label' %>
+        <%= f.text_field :email, class: 'form-control' %>
+      </div>
 
-    <div>
-        <%= f.label :city %>
-        <%= f.text_field :city %>
-    </div>
-
-    <div>
-        <%= f.label :state %>
-        <%= f.text_field :state %>
-    </div>
-
-    <div>
-        <%= f.label :zip_code %>
-        <%= f.text_field :zip_code %>
-    </div>
-
-    <div>
-        <%= f.label :description %>
-        <%= f.text_field :description %>
-    </div>
-
-    <div>
-        <%= f.label :payment_methods, "Meios de Pagamento" %><br>
+      <div class="mb-4">
+        <%= f.label :payment_methods, "Meios de Pagamento", class: 'form-label' %><br>
         <% PaymentMethod.all.each do |method| %>
-        <%= check_box_tag "buffet[payment_method_ids][]", method.id, @buffet.payment_methods.include?(method), id: "buffet_payment_method_ids_#{method.id}" %>
-        <%= label_tag "buffet_payment_method_ids_#{method.id}", method.name %><br>
+          <div class="form-check">
+            <%= check_box_tag "buffet[payment_method_ids][]", method.id, @buffet.payment_methods.include?(method), id: "buffet_payment_method_ids_#{method.id}", class: 'form-check-input' %>
+            <%= label_tag "buffet_payment_method_ids_#{method.id}", method.name, class: 'form-check-label' %>
+          </div>
         <% end %>
+      </div>
+
     </div>
 
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <div class="col-md-6">
 
-    <%= f.submit %>
+      <div class="mb-3">
+        <%= f.label :address, class: 'form-label' %>
+        <%= f.text_field :address, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+      <%= f.label :district, class: 'form-label' %>
+      <%= f.text_field :district, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :city, class: 'form-label' %>
+        <%= f.text_field :city, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :state, class: 'form-label' %>
+        <%= f.text_field :state, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :zip_code, class: 'form-label' %>
+        <%= f.text_field :zip_code, class: 'form-control' %>
+      </div>
+
+      <div class="mb-3">
+        <%= f.label :description, class: 'form-label' %>
+        <%= f.text_area :description, class: 'form-control', rows: 5 %>
+      </div>
+
+    </div>
+
+  </div>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+
+  <%= f.submit 'Salvar Buffet', class: 'btn btn-primary' %>
 
 <% end %>

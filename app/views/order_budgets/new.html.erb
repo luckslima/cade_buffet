@@ -1,37 +1,38 @@
-<h1>Orçamento para o pedido <%= @order.code %></h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Orçamento para o pedido <%= @order.code %></h1>
 
-<%= form_with(model: [@order, @order_budget]) do |f| %>
+    <%= form_with(model: [@order, @order_budget]) do |f| %>
+        <div class="mb-3">
+            <p><strong>Valor base:</strong> R$ <%= @base_price %></p>
+        </div>
 
-    <div>
-        <p><strong>Valor base:</strong> R$ <%= @base_price %> </p>
-    </div>
+        <div class="mb-3">
+            <%= f.label :extra_fee, 'Taxa extra (R$)', class: 'form-label' %>
+            <%= f.number_field :extra_fee, step: '0.01', class: 'form-control' %>
+        </div>
 
-    <div>
-        <%= f.label :extra_fee, 'Taxa extra (R$)' %>
-        <%= f.number_field :extra_fee, step: '0.01' %>
-    </div>
+        <div class="mb-3">
+            <%= f.label :discount, 'Desconto (R$)', class: 'form-label' %>
+            <%= f.number_field :discount, step: '0.01', class: 'form-control' %>
+        </div>
 
-    <div>
-        <%= f.label :discount, 'Desconto (R$)' %>
-        <%= f.number_field :discount, step: '0.01' %>
-    </div>
+        <div class="mb-3">
+            <%= f.label :payment_method_id, 'Meio de Pagamento', class: 'form-label' %>
+            <%= f.collection_select :payment_method_id, @payment_methods, :id, :name, {}, { class: 'form-select' } %>
+        </div>
 
-    <div>
-        <%= f.label :payment_method_id, 'Meio de Pagamento' %>
-        <%= f.collection_select :payment_method_id, @payment_methods, :id, :name %>
-    </div>
+        <div class="mb-3">
+            <%= f.label :description, 'Observações', class: 'form-label' %>
+            <%= f.text_area :description, class: 'form-control' %>
+        </div>
 
-    <div>
-      <%= f.label :description, 'Observações' %> <br>
-      <%= f.text_area :description %>
-    </div>
+        <div class="mb-3">
+            <%= f.label :valid_until, 'Orçamento válido até', class: 'form-label' %>
+            <%= f.date_field :valid_until, class: 'form-control' %>
+        </div>
 
-    <div>
-        <%= f.label :valid_until, 'Orçamento válido até' %>
-        <%= f.date_field :valid_until %>
-    </div>
-
-
-    <%= f.submit 'Aprovar Pedido' %>
-
-<% end %>
+        <div>
+            <%= f.submit 'Aprovar Pedido', class: 'btn btn-primary' %>
+        </div>
+    <% end %>
+</div>

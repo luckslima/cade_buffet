@@ -1,78 +1,79 @@
-<h1>Detalhes do Pedido '<%= @order.code %>'</h1>
+<div class="container mt-5">
+    <h1 class="mb-4 text-primary">Detalhes do Pedido '<%= @order.code %>'</h1>
 
-<p><strong><%= Order.human_attribute_name(:buffet) %>:</strong> <%= @order.buffet.brand_name %></p>
-<p><strong><%= Order.human_attribute_name(:event_type) %>:</strong> <%= @order.event_type.name %></p>
-<p><strong><%= Order.human_attribute_name(:event_date) %>:</strong> <%= I18n.localize(@order.event_date) %></p>
-<p><strong><%= Order.human_attribute_name(:number_of_guests) %>:</strong> <%= @order.number_of_guests %></p>
-<p><strong><%= Order.human_attribute_name(:payment_method) %>:</strong> <%= @order.payment_method.name %></p>
-<p><strong><%= Order.human_attribute_name(:details) %>:</strong> <%= @order.details %></p>
-<% if @order.event_type.location_type == 'off_site' %>
-  <p><strong><%= Order.human_attribute_name(:address) %>:</strong> <%= @order.address %></p>    
-<% end %>
-<p><strong><%= Order.human_attribute_name(:status) %>:</strong> <%= I18n.translate(@order.status) %></p>
-
-<% if @order.order_budget.present? %>
-  <h3>Orçamento para o pedido:</h3>
-  <p><strong>Meio de pagamento:</strong> <%= @order.order_budget.payment_method.name %></p>
-  <p><strong>Taxa Extra:</strong> <%= number_to_currency(@order.order_budget.extra_fee, unit: "R$", separator: ",", delimiter: ".") %></p>
-  <p><strong>Desconto:</strong> <%= number_to_currency(@order.order_budget.discount, unit: "R$", separator: ",", delimiter: ".") %></p>
-  <p><strong>Valor final:</strong> <%= number_to_currency(@order.order_budget.final_price, unit: "R$", separator: ",", delimiter: ".") %></p>
-  <p><strong>Observações:</strong> <%= @order.order_budget.description %></p>
-  <p><strong>Orçamento válido até:</strong> <%= I18n.localize(@order.order_budget.valid_until) %></p>
-<% end %>
-
-<% if current_user.is_buffet_owner %>
-
-  <% if @order.pending? %>
-    <%= link_to 'Gerar Orçamento', new_order_order_budget_path(order_id: @order.id) %>
-  <% end %>
-
-  <% if @orders_same_day.any? %>
-    <div class="alert alert-warning">
-      <strong>Aviso:</strong> Existem outros pedidos para a mesma data.
-      <% @orders_same_day.each do |order| %>
-        <p>
-          Pedido <%= order.code %> - <%= order.event_type.name %>
-        </p>
-      <% end %>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p><strong><%= Order.human_attribute_name(:buffet) %>:</strong> <%= @order.buffet.brand_name %></p>
+            <p><strong><%= Order.human_attribute_name(:event_type) %>:</strong> <%= @order.event_type.name %></p>
+            <p><strong><%= Order.human_attribute_name(:event_date) %>:</strong> <%= I18n.localize(@order.event_date) %></p>
+            <p><strong><%= Order.human_attribute_name(:number_of_guests) %>:</strong> <%= @order.number_of_guests %></p>
+            <p><strong><%= Order.human_attribute_name(:payment_method) %>:</strong> <%= @order.payment_method.name %></p>
+            <p><strong><%= Order.human_attribute_name(:details) %>:</strong> <%= @order.details %></p>
+            <% if @order.event_type.location_type == 'off_site' %>
+                <p><strong><%= Order.human_attribute_name(:address) %>:</strong> <%= @order.address %></p>
+            <% end %>
+            <p><strong><%= Order.human_attribute_name(:status) %>:</strong> <%= I18n.translate(@order.status) %></p>
+        </div>
     </div>
-  <% end %>
 
-<% else %>
+    <% if @order.order_budget.present? %>
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3>Orçamento para o pedido:</h3>
+                <p><strong>Meio de pagamento:</strong> <%= @order.order_budget.payment_method.name %></p>
+                <p><strong>Taxa Extra:</strong> <%= number_to_currency(@order.order_budget.extra_fee, unit: "R$", separator: ",", delimiter: ".") %></p>
+                <p><strong>Desconto:</strong> <%= number_to_currency(@order.order_budget.discount, unit: "R$", separator: ",", delimiter: ".") %></p>
+                <p><strong>Valor final:</strong> <%= number_to_currency(@order.order_budget.final_price, unit: "R$", separator: ",", delimiter: ".") %></p>
+                <p><strong>Observações:</strong> <%= @order.order_budget.description %></p>
+                <p><strong>Orçamento válido até:</strong> <%= I18n.localize(@order.order_budget.valid_until) %></p>
+            </div>
+        </div>
+    <% end %>
 
-  <% if @order.approved? %>
-    <% if Date.today <= @order.order_budget.valid_until %>
-      <%= button_to 'Confirmar Pedido', confirmed_order_path(@order)%>
+    <% if current_user.is_buffet_owner %>
+        <% if @order.pending? %>
+            <%= link_to 'Gerar Orçamento', new_order_order_budget_path(order_id: @order.id), class: 'btn btn-primary' %>
+        <% end %>
+
+        <% if @orders_same_day.any? %>
+            <div class="alert alert-warning">
+                <strong>Aviso:</strong> Existem outros pedidos para a mesma data.
+                <% @orders_same_day.each do |order| %>
+                    <p>Pedido <%= order.code %> - <%= order.event_type.name %></p>
+                <% end %>
+            </div>
+        <% end %>
     <% else %>
-      <p>O prazo para confirmação deste pedido expirou.</p>
-    <% end %>
-    <p>Data-limite para confirmação: <%= @order.order_budget.valid_until %></p>
-  <% end %>
-
-<% end %>
-
-<h3>Mensagens</h3>
-<div>
-  <% if @order.messages.any? %>
-    
-    <% @order.messages.order(created_at: :desc).each do |message| %>
-      <p>
-        <strong><%= message.user.name %> (enviado em <%= message.created_at.strftime("%d/%m/%Y às %H:%M") %>):</strong>
-        <%= message.content %>
-      </p>
+        <% if @order.approved? %>
+            <% if Date.today <= @order.order_budget.valid_until %>
+                <%= button_to 'Confirmar Pedido', confirmed_order_path(@order), class: 'btn btn-success' %>
+            <% else %>
+                <p>O prazo para confirmação deste pedido expirou.</p>
+            <% end %>
+            <p>Data-limite para confirmação: <%= @order.order_budget.valid_until %></p>
+        <% end %>
     <% end %>
 
-  <% end %>
+    <h3 class="mt-4 text-primary">Mensagens</h3>
+    <div class="card">
+        <div class="card-body">
+            <% if @order.messages.any? %>
+                <% @order.messages.order(created_at: :desc).each do |message| %>
+                    <p>
+                        <strong><%= message.user.name %> (enviado em <%= message.created_at.strftime("%d/%m/%Y às %H:%M") %>):</strong>
+                        <%= message.content %>
+                    </p>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <h4 class="mt-4 mb-3">Enviar nova mensagem</h4>
+    <%= form_with(model: [ @order, @message ], local: true) do |f| %>
+        <div class="mb-3">
+            <%= f.label :content, 'Nova Mensagem:', class: 'form-label' %>
+            <%= f.text_area :content, class: 'form-control' %>
+        </div>
+        <%= f.submit "Enviar", class: 'btn btn-primary' %>
+    <% end %>
 </div>
-
-<h4>Enviar nova mensagem</h4>
-<%= form_with(model: [ @order, @message ], local: true) do |f| %>
-  <div>
-    <%= f.label :content, 'Nova Mensagem:' %> <br>
-    <%= f.text_area :content %>
-  </div>
-  <%= f.submit "Enviar" %>
-<% end %>
-
-
-

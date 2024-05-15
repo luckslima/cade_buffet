@@ -14,7 +14,9 @@ describe 'Usuário visualiza seu buffet' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Meu buffet'
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
 
         #Assert
         expect(current_path).to eq buffet_path(user.buffet)

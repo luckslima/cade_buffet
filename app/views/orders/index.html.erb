@@ -1,56 +1,74 @@
-<h1><%= current_user.is_buffet_owner ? 'Pedidos' : 'Meus Pedidos' %></h1>
+<div class="container mt-5">
+    <h1 class="mb-3 text-primary"><%= current_user.is_buffet_owner ? 'Pedidos' : 'Meus Pedidos' %></h1>
 
-<% if current_user.is_buffet_owner %>
-  <h2>Pedidos Pendentes</h2>
-  <% if @pending_orders.any? %>
-    <ul>
-      <% @pending_orders.each do |order| %>
-        <li>
-          <%= link_to "Pedido #{order.code}", order_path(order) %>
-          - Evento: <%= order.event_type.name %>
-          - Data: <%= I18n.localize(order.event_date) %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Não há pedidos pendentes.</p>
-  <% end %>
+    <% if current_user.is_buffet_owner %>
+        <div class="card mb-3">
+            <div class="card-header">
+                <h2>Pedidos Pendentes</h2>
+            </div>
+            <div class="card-body">
+                <% if @pending_orders.any? %>
+                    <ul class="list-group list-group-flush">
+                        <% @pending_orders.each do |order| %>
+                            <li class="list-group-item">
+                                <%= link_to "Pedido #{order.code}", order_path(order) %>
+                                - Evento: <%= order.event_type.name %>
+                                - Data: <%= I18n.localize(order.event_date) %>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    <p>Não há pedidos pendentes.</p>
+                <% end %>
+            </div>
+        </div>
 
-  <h2>Outros Pedidos</h2>
-  <% if @other_orders.any? %>
-    <ul>
-      <% @other_orders.each do |order| %>
-        <li>
-          <%= link_to "Pedido #{order.code}", order_path(order) %>
-          - Evento: <%= order.event_type.name %>
-          - Data: <%= I18n.localize(order.event_date) %>
-          - Status: <%= I18n.translate(order.status) %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Não há outros pedidos.</p>
-  <% end %>
+        <div class="card">
+            <div class="card-header">
+                <h2>Outros Pedidos</h2>
+            </div>
+            <div class="card-body">
+                <% if @other_orders.any? %>
+                    <ul class="list-group list-group-flush">
+                        <% @other_orders.each do |order| %>
+                            <li class="list-group-item">
+                                <%= link_to "Pedido #{order.code}", order_path(order) %>
+                                - Evento: <%= order.event_type.name %>
+                                - Data: <%= I18n.localize(order.event_date) %>
+                                - Status: <%= I18n.translate(order.status) %>
+                            </li>
+                        <% end %>
+                    </ul>
+                <% else %>
+                    <p>Não há outros pedidos.</p>
+                <% end %>
+            </div>
+        </div>
 
-<% else %>
-  <% if @orders.any? %>
-    <ul>
-      <% @orders.each do |order| %>
-        <li>
-          <%= link_to "Pedido #{order.code}", order_path(order) %>
-          - Buffet: <%= order.buffet.brand_name %>
-          - Evento: <%= order.event_type.name %>
-          - Data: <%= I18n.localize(order.event_date) %>
-          <% if order.approved? %>
-          - Status: <%= I18n.translate(order.status) %>
-          <p>Aguardando sua confirmação!</p>     
-          <% else %>
-          - Status: <%= I18n.translate(order.status) %>       
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
-  <% else %>
-    <p>Não há pedidos para mostrar.</p>
-  <% end %>
-<% end %>
+    <% else %>
+        <% if @orders.any? %>
+            <div class="card">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <% @orders.each do |order| %>
+                            <li class="list-group-item">
+                                <%= link_to "Pedido #{order.code}", order_path(order) %>
+                                - Buffet: <%= order.buffet.brand_name %>
+                                - Evento: <%= order.event_type.name %>
+                                - Data: <%= I18n.localize(order.event_date) %>
+                                <% if order.approved? %>
+                                    - Status: <%= I18n.translate(order.status) %>
+                                    <p class="text-warning">Aguardando sua confirmação!</p>     
+                                <% else %>
+                                    - Status: <%= I18n.translate(order.status) %>       
+                                <% end %>
+                            </li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        <% else %>
+            <p>Não há pedidos para mostrar.</p>
+        <% end %>
+    <% end %>
+</div>

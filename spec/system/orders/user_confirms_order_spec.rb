@@ -25,7 +25,9 @@ describe 'Usuário cliente tenta confirmar pedido' do
         #Act
         login_as(client)
         visit root_path
-        click_on 'Meus Pedidos'
+        within("#nav-meus-pedidos") do
+            click_on 'Meus Pedidos'
+        end
         click_on order.code
         click_on 'Confirmar Pedido'
 
@@ -59,7 +61,9 @@ describe 'Usuário cliente tenta confirmar pedido' do
         #Act
         login_as(client)
         visit root_path
-        click_on 'Meus Pedidos'
+        within("#nav-meus-pedidos") do
+            click_on 'Meus Pedidos'
+        end
         click_on order.code
 
         #Assert

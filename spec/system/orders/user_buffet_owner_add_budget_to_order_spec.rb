@@ -23,7 +23,9 @@ describe 'Usuário dono de buffet registra o orçamento do pedido' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Pedidos'
+        within("#nav-pedidos") do
+            click_on 'Pedidos'
+        end
         click_on order.code
         click_on 'Gerar Orçamento'
 
@@ -62,7 +64,9 @@ describe 'Usuário dono de buffet registra o orçamento do pedido' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Pedidos'
+        within("#nav-pedidos") do
+            click_on 'Pedidos'
+        end
         click_on order.code
         click_on 'Gerar Orçamento'
         date = I18n.localize(1.month.from_now)

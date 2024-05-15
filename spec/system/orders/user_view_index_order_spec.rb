@@ -25,7 +25,9 @@ describe 'Usuário vê pedidos' do
             #Act
             login_as(client)
             visit root_path
-            click_on 'Meus Pedidos'
+            within("#nav-meus-pedidos") do
+                click_on 'Meus Pedidos'
+            end
     
             #Assert
             expect(current_path).to eq orders_path
@@ -62,7 +64,9 @@ describe 'Usuário vê pedidos' do
             #Act
             login_as(client_1)
             visit root_path
-            click_on 'Meus Pedidos'
+            within("#nav-meus-pedidos") do    
+                click_on 'Meus Pedidos'
+            end
 
             #Assert
             expect(page).to have_content order_1.code
@@ -94,7 +98,9 @@ describe 'Usuário vê pedidos' do
             #Act
             login_as(client)
             visit root_path
-            click_on 'Meus Pedidos'
+            within("#nav-meus-pedidos") do
+                click_on 'Meus Pedidos'
+            end
 
             #Assert
             expect(page).to have_content "Não há pedidos para mostrar."
@@ -126,7 +132,9 @@ describe 'Usuário vê pedidos' do
             #Act
             login_as(user)
             visit root_path
-            click_on 'Pedidos'
+            within("#nav-pedidos") do
+                click_on 'Pedidos'
+            end
     
             #Assert
             expect(current_path).to eq orders_path
@@ -158,7 +166,9 @@ describe 'Usuário vê pedidos' do
             #Act
             login_as(user)
             visit root_path
-            click_on 'Pedidos'
+            within("#nav-pedidos") do
+                click_on 'Pedidos'
+            end
 
             #Assert
             expect(page).to have_content "Não há pedidos pendentes."

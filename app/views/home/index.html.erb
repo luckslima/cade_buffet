@@ -1,13 +1,20 @@
-<h3>Encontre o seu Buffet dos sonhos</h3>
-
-<ul>
+<div class="container">
+  <div class="row">
+    <h3 class="text-primary fst-italic fs-1">Encontre o Buffet dos seus sonhos:</h3>
+    <br>
     <% @buffets.each do |b| %>
-        
-        <li>
-            <strong><%= link_to(b.brand_name, buffet_path(b))%></strong>
-            <br>
-            <%= b.city %> | <%= b.state%>
-        </li>
-    
+      <div class="col-md-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">
+              <%= link_to b.brand_name, buffet_path(b), class: "text-decoration-none" %>
+            </h5>
+            <p class="card-text">
+              <%= b.city %> | <%= b.state %>
+            </p>
+          </div>
+        </div>
+      </div>
     <% end %>
-</ul>
+  </div>
+</div>

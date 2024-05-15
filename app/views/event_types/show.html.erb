@@ -1,66 +1,70 @@
-<h2> <%= @event_type.name %> </h2>
+<div class="container mt-5">
+    <h2 class="mb-3 text-primary"><%= @event_type.name %></h2>
 
-<% if @event_type.image.attached? %>
-  <%= image_tag @event_type.image, class: 'resized-image' %>
-<% end %>
-
-<div>
-    <dl>
-        <dd>Descrição:</dd>
-        <dt><%= @event_type.description %></dt>
-        <dd>Quantidade de convidados:</dd>
-        <dt>Mínimo: <%= @event_type.min_guests %> convidados | Máximo: <%= @event_type.max_guests %> convidados</dt>
-        <dd>Duração Máxima:</dd>
-        <dt><%= @event_type.duration_minutes / 60 %> horas</dt>
-        <dd>Descrição do Menu:</dd>
-        <dt><%= @event_type.menu_description %></dt>
-        <dd>Bebidas Alcoólicas:</dd>
-        <dt><%= @event_type.alcohol_included ? 'Incluso.' : 'Não incluso.' %></dt>   
-        <dd>Serviço de decoração:</dd>
-        <dt><%= @event_type.decoration_included ? 'Incluso.' : 'Não incluso.' %></dt>    
-        <dd>Estacionamento e manobrista:</dd>
-        <dt><%= @event_type.parking_available ? 'Incluso.' : 'Não incluso.' %></dt>   
-        <dd>Local do evento:</dd>
-        <dt><%= @event_type.parking_available == 'on_site' ? 'No local' : 'Em outro local' %></dt>  
-    </dl>
-</div>
-
-<h4> Preços </h4>
-
-<% if @event_type.event_prices.any? %>
-
-    <ul>
-    <% @event_type.event_prices.each do |event_price| %>
-      <li>
-        <strong><%= event_price.price_for_weekend ? 'Preço para final de semana' : 'Preço para dias de semana' %>:</strong>
-        <br>
-        Preço base: R$ <%= event_price.base_price %>
-        <br>
-        Valor adicional por pessoa: R$ <%= event_price.additional_guest_price %> 
-        <br>
-        Valor por hora extra: R$ <%= event_price.extra_hour_price %>
-      </li>
-
-      <% if current_user == @event_type.buffet.user %>
-        <%=link_to('Atualizar preço', edit_event_type_event_price_path(event_price.id))%> 
-      <% end %>
-
+    <% if @event_type.image.attached? %>
+        <%= image_tag @event_type.image, class: 'img-fluid rounded mb-3' %>
     <% end %>
-   </ul>
-    
-<% else %>
-  <p>Nenhum preço cadastrado para esse tipo de evento.</p>  
-<% end %>
 
-<% if current_user == @event_type.buffet.user %>
-    <%=link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id))%> |
-    <%=link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id))%> |
-<% end %>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-4">Descrição:</dt>
+            <dd class="col-sm-8"><%= @event_type.description %></dd>
+            
+            <dt class="col-sm-4">Quantidade de convidados:</dt>
+            <dd class="col-sm-8">Mínimo: <%= @event_type.min_guests %> convidados | Máximo: <%= @event_type.max_guests %> convidados</dd>
+            
+            <dt class="col-sm-4">Duração Máxima:</dt>
+            <dd class="col-sm-8"><%= @event_type.duration_minutes / 60 %> horas</dd>
+            
+            <dt class="col-sm-4">Descrição do Menu:</dt>
+            <dd class="col-sm-8"><%= @event_type.menu_description %></dd>
+            
+            <dt class="col-sm-4">Bebidas Alcoólicas:</dt>
+            <dd class="col-sm-8"><%= @event_type.alcohol_included ? 'Incluso' : 'Não incluso' %>.</dd>
+            
+            <dt class="col-sm-4">Serviço de decoração:</dt>
+            <dd class="col-sm-8"><%= @event_type.decoration_included ? 'Incluso' : 'Não incluso' %>.</dd>
+            
+            <dt class="col-sm-4">Estacionamento e manobrista:</dt>
+            <dd class="col-sm-8"><%= @event_type.parking_available ? 'Incluso' : 'Não incluso' %>.</dd>
+            
+            <dt class="col-sm-4">Local do evento:</dt>
+            <dd class="col-sm-8"><%= @event_type.parking_available == 'on_site' ? 'No local' : 'Em outro local' %></dd>
+        </dl>
+    </div>
 
-<% if user_signed_in? %>
-  <% if !current_user.is_buffet_owner %>
-    <%=link_to('Criar Pedido para evento', new_event_type_order_path(@event_type.id))%>  
-  <% end %>
-<% end %>
+    <h4 class="mt-4 text-primary">Preços</h4>
 
+    <% if @event_type.event_prices.any? %>
+        <ul class="list-group">
+        <% @event_type.event_prices.each do |event_price| %>
+            <li class="list-group-item">
+                <strong><%= event_price.price_for_weekend ? 'Preço para final de semana' : 'Preço para dias de semana' %>:</strong>
+                <div>Preço base: R$ <%= event_price.base_price %></div>
+                <div>Valor adicional por pessoa: R$ <%= event_price.additional_guest_price %></div>
+                <div>Valor por hora extra: R$ <%= event_price.extra_hour_price %></div>
+                
+                <% if current_user == @event_type.buffet.user %>
+                    <%= link_to('Atualizar preço', edit_event_type_event_price_path(event_price.id), class: 'btn btn-link') %> 
+                <% end %>
+            </li>
+        <% end %>
+        </ul>
+    <% else %>
+        <p>Nenhum preço cadastrado para esse tipo de evento.</p>  
+    <% end %>
 
+    <% if current_user == @event_type.buffet.user %>
+        <div class="mt-4">
+            <%= link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id), class: 'btn btn-primary') %> 
+            <%= link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id), class: 'btn btn-secondary') %> 
+        </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+        <br>
+        <% if !current_user.is_buffet_owner %>
+            <%= link_to('Criar Pedido para evento', new_event_type_order_path(@event_type.id), class: 'btn btn-primary') %>  
+        <% end %>
+    <% end %>
+</div>

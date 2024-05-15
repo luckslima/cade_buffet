@@ -1,57 +1,57 @@
-<h1> <%= @buffet.brand_name %> </h1>
+<div class="container mt-5">
+  <h1 class="display-4 text-primary"> <%= @buffet.brand_name %> </h1>
+  <p class="lead"><%= @buffet.description %></p>
 
-<P><%= @buffet.description %></P>
-
-<div>
-    <dl>
-        <% if current_user == @buffet.user %>
-          <dd>Razão Social:</dd>
-          <dt><%= @buffet.corporate_name %></dt>
-        <% end %>
-        <dd>Telefone:</dd>
-        <dt><%= @buffet.phone %></dt>
-        <dd>E-mail:</dd>
-        <dt><%= @buffet.email %></dt>
-        <dd>Localização:</dd>
-        <dt><%= @buffet.address %>, <%= @buffet.city %> | <%= @buffet.state %> </dt>
-        <dd>CEP:</dd>
-        <dt><%= @buffet.zip_code %></dt>
-        <dd>CNPJ:</dd>
-        <dt><%= @buffet.registration_number %></dt>
-        <dd>Meios de Pagamento:</dd>
-        <dt>
-          <% @buffet.payment_methods.each do |method| %>
-            <%= method.name %><%= "," unless method == @buffet.payment_methods.last %>
-          <% end %>
-        </dt>
-    </dl>
-</div>
-
-<h2> Eventos Realizados: </h2>
-
-<% if @buffet.event_types.any? %>
-  <ul>
-    <% @buffet.event_types.each do |event_type| %>
-      <li>
-        <strong><%= link_to(event_type.name, event_type_path(event_type))%>:</strong> <%= event_type.description %>
-        <br>
-        Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %>
-        <br>
-        Duração: <%= event_type.duration_minutes / 60 %> horas
-        <br>
-        Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
-      </li>
-      <% if event_type.image.attached? %>
-        <%= image_tag event_type.image, class: 'circular-image' %>
+  <div class="mb-4">
+    <dl class="row">
+      <% if current_user == @buffet.user %>
+        <dt class="col-sm-3">Razão Social:</dt>
+        <dd class="col-sm-9"><%= @buffet.corporate_name %></dd>
       <% end %>
-    <% end %>
-  </ul>
-<% else %>
-  <p>Nenhum tipo de evento cadastrado.</p>
-<% end %>
+      <dt class="col-sm-3">Telefone:</dt>
+      <dd class="col-sm-9"><%= @buffet.phone %></dd>
+      <dt class="col-sm-3">E-mail:</dt>
+      <dd class="col-sm-9"><%= @buffet.email %></dd>
+      <dt class="col-sm-3">Localização:</dt>
+      <dd class="col-sm-9"><%= @buffet.address %>, <%= @buffet.city %> | <%= @buffet.state %></dd>
+      <dt class="col-sm-3">CEP:</dt>
+      <dd class="col-sm-9"><%= @buffet.zip_code %></dd>
+      <dt class="col-sm-3">CNPJ:</dt>
+      <dd class="col-sm-9"><%= @buffet.registration_number %></dd>
+      <dt class="col-sm-3">Meios de Pagamento:</dt>
+      <dd class="col-sm-9">
+        <% @buffet.payment_methods.each do |method| %>
+          <%= method.name %><%= "," unless method == @buffet.payment_methods.last %>
+        <% end %>
+      </dd>
+    </dl>
+  </div>
 
-<% if current_user == @buffet.user %>
-    <%=link_to('Atualizar Buffet', edit_buffet_path(@buffet.id))%> |
-    <%=link_to('Cadastrar tipo de evento', new_event_type_path)%>
-<% end %>
+  <h2 class="mt-4 mb-3 text-primary">Eventos Realizados:</h2>
+  <% if @buffet.event_types.any? %>
+    <div class="list-group">
+      <% @buffet.event_types.each do |event_type| %>
+        <div class="list-group-item">
+          <strong><%= link_to(event_type.name, event_type_path(event_type)) %>:</strong> <%= event_type.description %>
+          <p>
+            Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %><br>
+            Duração: <%= event_type.duration_minutes / 60 %> horas<br>
+            Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
+          </p>
+          <% if event_type.image.attached? %>
+            <%= image_tag event_type.image, class: 'img-fluid rounded-circle' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Nenhum tipo de evento cadastrado.</p>
+  <% end %>
 
+  <% if current_user == @buffet.user %>
+    <div class="mt-4">
+      <%= link_to 'Atualizar Buffet', edit_buffet_path(@buffet.id), class: 'btn btn-primary' %> 
+      <%= link_to 'Cadastrar tipo de evento', new_event_type_path, class: 'btn btn-secondary' %>
+    </div>
+  <% end %>
+</div>

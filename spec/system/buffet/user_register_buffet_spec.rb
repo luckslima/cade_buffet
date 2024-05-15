@@ -50,7 +50,7 @@ describe 'Usuário registra um buffet' do
         fill_in "Descrição", with: "Buffet para casamentos e festas de 15 anos"
         check "Boleto Bancário"
         check "Cartão de Crédito"
-        click_on 'Criar Buffet'
+        click_on 'Salvar Buffet'
 
         #Assert 
         expect(page).to have_content("Buffet cadastrado com sucesso!")
@@ -80,7 +80,7 @@ describe 'Usuário registra um buffet' do
         fill_in "Descrição", with: "Buffet para casamentos e festas de 15 anos"
         check "Boleto Bancário"
         check "Cartão de Crédito"
-        click_on 'Criar Buffet'
+        click_on 'Salvar Buffet'
 
         #Assert
         expect(page).to have_content 'Não foi possível cadastrar o buffet.'

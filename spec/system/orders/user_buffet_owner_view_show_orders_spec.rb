@@ -24,7 +24,9 @@ describe 'Usuário Dono de Buffet vê detalhes de um pedido' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Pedidos'
+        within("#nav-pedidos") do
+            click_on 'Pedidos'
+        end
         click_on order_1.code
 
         #Assert

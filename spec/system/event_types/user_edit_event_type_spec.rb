@@ -18,14 +18,16 @@ describe 'Usuário dono de buffet atualiza tipo de evento' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Meu buffet'
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
         click_on 'Halloween'
         click_on 'Atualizar tipo de evento'
         fill_in "Nome", with: "Casamento"
         fill_in "Descrição", with: "Temos o melhor buffet para casamentos."
         fill_in "Duração em minutos", with: '360' #Lembrete: Alterar no formulário para horas e depois implementar a lógica de conversão
         fill_in "Descrição do Menu", with: "Massas, carnes e sobremesas variadas"
-        click_on 'Atualizar Tipo de evento'
+        click_on 'Salvar'
 
         #Assert
         expect(current_path).to eq event_type_path(buffet.event_types.last)

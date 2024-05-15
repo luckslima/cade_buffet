@@ -1,15 +1,25 @@
-<h1>Resultados da busca por: <%=@query %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-primary fst-italic fs-1">Resultados da busca por: <%=@query %></h5>
+      <p><%= @buffets.count %> <%= @buffets.model_name.human(count: @buffets.count).downcase %> <%= I18n.t(:found, count: @buffets.count) %></p>
+    </div>
+  </div>
 
-<p><%= @buffets.count %> <%= @buffets.model_name.human(count: @buffets.count).downcase %> <%= I18n.t(:found, count: @buffets.count) %></p>
-
-<ul id="buffets">
+  <ul id="buffets" class="row list-unstyled">
     <% @buffets.each do |b| %>
-        
-        <li>
-            <strong><%= link_to(b.brand_name, buffet_path(b))%></strong>
-            <br>
-            <%= b.city %> | <%= b.state%>
-        </li>
-    
+      <li class="col-md-3 col-sm-6 col-12">
+        <div class="card">
+          <div class="card-body text-center">
+            <h5 class="card-title">
+              <%= link_to b.brand_name, buffet_path(b), class: "text-decoration-none" %>
+            </h5>
+            <p class="card-text">
+              <%= b.city %> | <%= b.state %>
+            </p>
+          </div>
+        </div>
+      </li>
     <% end %>
-</ul>
+  </ul>
+</div>

@@ -14,11 +14,13 @@ describe 'Usuário atualiza um buffet' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Meu buffet'
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
         click_on 'Atualizar Buffet'
         fill_in "Nome Fantasia", with: "Buffet da Patty"
         fill_in "CEP", with: "40324-500" 
-        click_on 'Atualizar Buffet'
+        click_on 'Salvar Buffet'
                 
         #Assert 
         expect(page).to have_content("Buffet atualizado com sucesso!")

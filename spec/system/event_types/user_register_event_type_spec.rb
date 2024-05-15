@@ -15,7 +15,9 @@ describe 'Usuário dono de buffet cadastra tipo de evento' do
         #Act
         login_as(user)
         visit root_path
-        click_on 'Meu buffet'
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
         click_on 'Cadastrar tipo de evento'
         fill_in "Nome", with: "Casamento"
         fill_in "Descrição", with: "Temos o melhor buffet para casamentos."
@@ -27,7 +29,7 @@ describe 'Usuário dono de buffet cadastra tipo de evento' do
         check "Inclui decoração"
         select 'Em outro local', from: 'Local do evento'
         attach_file 'Imagem', Rails.root.join('spec', 'support', 'casamento.jpg')
-        click_on 'Criar Tipo de evento'
+        click_on 'Salvar'
 
         #Assert
         expect(current_path).to eq buffet_path(buffet.id)

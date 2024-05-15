@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CadeBuffet</title>
+    <title>Cadê Buffet?</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,64 +12,109 @@
 
   <body>
     <header>
-      <h1>
-        <%= link_to root_path do %>
-          <%= image_tag 'logo.png', alt: 'Logo Cadê Buffet', width: "500" %>
-        <% end %>
-      </h1>
-      <nav class = "ms-3" id = 'nav-bar'>
+      <div class="container">
         
-       <% if user_signed_in? %>
-          <% if current_user.is_buffet_owner %>
-            <% if current_user.buffet %>
-              <%= link_to 'Meu buffet', buffet_path(current_user.buffet) %> | 
-              <%= link_to 'Pedidos', orders_path %>
-            <% else %>
-              <%= link_to 'Cadastrar Buffet', new_buffet_path %> |
-            <% end %>
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-          <% else %>
-            <%= current_user.name %> |
-            <%= link_to 'Meus Pedidos', orders_path %> |
-            <%= button_to 'Sair', destroy_user_session_path, method: :delete %>  
-            <br>
-            <%= form_with(url: search_buffets_path, method: :get, id: 'search-form') do |f|%>
-              <%= f.label :query, 'Buscar Buffet' %>
-              <%= f.text_field :query %>
-              <%= f.submit 'Buscar' %>
-            <%end%>
-          <% end %>
-        <% else %>
-        <ul class="nav nav-pills gap-2 ">
-          <li class="nav-item bg-warning rounded-5" >
-            <button class="nav-link"> <%= link_to 'Home', root_path %> </button>
-          </li>
-          <li class="nav-item bg-warning rounded-5" >
-            <button class="nav-link" id="nav-cadastrar"> <%= link_to 'Cadastrar', new_user_registration_path %> </button>
-          </li>
-          <li class="nav-item bg-warning rounded-5">
-            <button class="nav-link" id="nav-entrar"> <%= link_to 'Entrar', new_user_session_path %> </button>
-          </li>
-        </ul>
-        <br>
-          <div class="d-flex align-items-center">
-            <%= form_with(url: search_buffets_path, method: :get, id: 'search-form', local: true, class: "d-flex") do |f| %>
-                <%= f.label :query, 'Buscar Buffet', class: 'sr-only' %>
-                <%= f.text_field :query, class: 'form-control me-2', placeholder: 'Buscar Buffet', style: "width: 300px;" %>
-                <%= f.submit 'Buscar', class: 'btn btn-outline-warning' %>
-            <% end %>
+        <div class="row">
+          <div class="col">
+            <h1>
+              <%= link_to root_path do %>
+                <%= image_tag 'logo.png', alt: 'Logo Cadê Buffet', width: "500" %>
+              <% end %>
+            </h1>
           </div>
+        </div>
 
+        <div class="row">
+          <div class="col">
+            <nav id = 'nav-bar'>
+              
+              <% if user_signed_in? %>
+                  <% if current_user.is_buffet_owner %>
+                    <ul class="nav nav-pills gap-2 ">
+                      <li class="nav-item bg-warning rounded-5" >
+                        <button class="nav-link"> <%= link_to 'Home', root_path, class: "text-white text-decoration-none" %> </button>
+                      </li>
+                      <% if current_user.buffet %>
+                        <li class="nav-item bg-warning rounded-5" >
+                          <button class="nav-link" id="nav-meu-buffet"> <%= link_to 'Meu buffet', buffet_path(current_user.buffet), class: "text-white text-decoration-none" %> </button>
+                        </li> 
+                        <li class="nav-item bg-warning rounded-5" >
+                          <button class="nav-link" id="nav-pedidos"> <%= link_to 'Pedidos', orders_path, class: "text-white text-decoration-none" %> </button>
+                        </li>
+                      <% else %>
+                      <li class="nav-item bg-warning rounded-5" >
+                        <button class="nav-link"> <%= link_to 'Cadastrar Buffet', new_buffet_path, class: "text-white text-decoration-none" %> </button>
+                      </li>
+                      <% end %>
+                      <li class="nav-item bg-warning rounded-5" >
+                        <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-warning nav-link text-white', form_class: 'd-inline' %>
+                      </li>
+                    </ul>
+                  <% else %>
+                    <ul class="nav nav-pills gap-2 ">
+                      <li class="nav-item bg-warning rounded-5" >
+                        <button class="nav-link"> <%= link_to 'Home', root_path, class: "text-white text-decoration-none" %> </button>
+                      </li>
+                      <li class="nav-item bg-warning rounded-5" >
+                        <button class="nav-link" id="nav-meus-pedidos"> <%= link_to 'Meus Pedidos', orders_path, class: "text-white text-decoration-none" %> </button>
+                      </li> 
+                      <li class="nav-item bg-warning rounded-5" >
+                        <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-warning nav-link text-white', form_class: 'd-inline'  %>  
+                      </li>
+                    </ul>
+                    <br>
+                    <div class="d-flex align-items-center">
+                      <%= form_with(url: search_buffets_path, method: :get, id: 'search-form', local: true, class: "d-flex") do |f| %>
+                          <%= f.label :query, 'Buscar Buffet', class: 'sr-only' %>
+                          <%= f.text_field :query, class: 'form-control me-2', placeholder: 'Buscar Buffet', style: "width: 300px;" %>
+                          <%= f.submit 'Buscar', class: 'btn btn-outline-warning' %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                <% else %>
+                <ul class="nav nav-pills gap-2 ">
+                  <li class="nav-item bg-warning rounded-5" >
+                    <button class="nav-link"> <%= link_to 'Home', root_path, class: "text-white text-decoration-none" %> </button>
+                  </li>
+                  <li class="nav-item bg-warning rounded-5" >
+                    <button class="nav-link" id="nav-cadastrar"> <%= link_to 'Cadastrar', new_user_registration_path, class: "text-white text-decoration-none" %> </button>
+                  </li>
+                  <li class="nav-item bg-warning rounded-5">
+                    <button class="nav-link" id="nav-entrar"> <%= link_to 'Entrar', new_user_session_path, class: "text-white text-decoration-none" %> </button>
+                  </li>
+                </ul>
+                <br>
+                  <div class="d-flex align-items-center">
+                    <%= form_with(url: search_buffets_path, method: :get, id: 'search-form', local: true, class: "d-flex") do |f| %>
+                        <%= f.label :query, 'Buscar Buffet', class: 'sr-only' %>
+                        <%= f.text_field :query, class: 'form-control me-2', placeholder: 'Buscar Buffet', style: "width: 300px;" %>
+                        <%= f.submit 'Buscar', class: 'btn btn-outline-warning' %>
+                    <% end %>
+                  </div>
+
+                <% end %>
+
+            </nav>
+          </div>
+        </div>
+        
+        <% if notice.present? || alert.present? %>
+          <div class="row mt-3">
+            <div class="col-md-3">
+              <% if notice.present? %>
+                <p class="notice alert alert-success" role="alert"><%= notice %></p>
+              <% end %>
+              <% if alert.present? %>
+                <p class="alert alert-danger" role="alert"><%= alert %></p>
+              <% end %>
+            </div>
+          </div>
         <% end %>
 
-      </nav>
-    </header>
-    <main>
-      <div>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
       </div>
-
+    </header>
+    
+    <main>
       <%= yield %>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
