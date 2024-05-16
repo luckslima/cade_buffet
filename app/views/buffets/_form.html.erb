@@ -39,6 +39,11 @@
         <% end %>
       </div>
 
+      <div class="mb-3">
+        <%= f.label :image, class: 'form-label' %>
+        <%= f.file_field :image, class: 'form-control' %>
+      </div>
+
     </div>
 
     <div class="col-md-6">
@@ -70,7 +75,7 @@
 
       <div class="mb-3">
         <%= f.label :description, class: 'form-label' %>
-        <%= f.text_area :description, class: 'form-control', rows: 5 %>
+        <%= f.text_area :description, class: 'form-control', rows: 9 %>
       </div>
 
     </div>

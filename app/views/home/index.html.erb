@@ -5,6 +5,9 @@
     <% @buffets.each do |b| %>
       <div class="col-md-3 col-sm-6 col-12">
         <div class="card">
+          <% if b.image.attached? %>
+              <%= image_tag b.image, class: 'img-fluid img-index card-img-top' %>
+          <% end %>
           <div class="card-body text-center">
             <h5 class="card-title">
               <%= link_to b.brand_name, buffet_path(b), class: "text-decoration-none" %>

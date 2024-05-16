@@ -6,4 +6,5 @@ class Buffet < ApplicationRecord
   has_many :event_types, dependent: :destroy
   has_many :payment_method_buffets
   has_many :payment_methods, through: :payment_method_buffets
+  has_one_attached :image
 end

@@ -2,29 +2,36 @@
   <h1 class="display-4 text-primary"> <%= @buffet.brand_name %> </h1>
   <p class="lead"><%= @buffet.description %></p>
 
-  <div class="mb-4">
-    <dl class="row">
-      <% if current_user == @buffet.user %>
-        <dt class="col-sm-3">Razão Social:</dt>
-        <dd class="col-sm-9"><%= @buffet.corporate_name %></dd>
-      <% end %>
-      <dt class="col-sm-3">Telefone:</dt>
-      <dd class="col-sm-9"><%= @buffet.phone %></dd>
-      <dt class="col-sm-3">E-mail:</dt>
-      <dd class="col-sm-9"><%= @buffet.email %></dd>
-      <dt class="col-sm-3">Localização:</dt>
-      <dd class="col-sm-9"><%= @buffet.address %>, <%= @buffet.city %> | <%= @buffet.state %></dd>
-      <dt class="col-sm-3">CEP:</dt>
-      <dd class="col-sm-9"><%= @buffet.zip_code %></dd>
-      <dt class="col-sm-3">CNPJ:</dt>
-      <dd class="col-sm-9"><%= @buffet.registration_number %></dd>
-      <dt class="col-sm-3">Meios de Pagamento:</dt>
-      <dd class="col-sm-9">
-        <% @buffet.payment_methods.each do |method| %>
-          <%= method.name %><%= "," unless method == @buffet.payment_methods.last %>
+  <div class="row mb-4">
+    <% if @buffet.image.attached? %>
+      <div class="col-md-4">
+        <%= image_tag @buffet.image, class: 'img-fluid rounded img-details' %>
+      </div>
+    <% end %>
+    <div class="col-md-8">
+      <dl class="row">
+        <% if current_user == @buffet.user %>
+          <dt class="col-sm-3">Razão Social:</dt>
+          <dd class="col-sm-9"><%= @buffet.corporate_name %></dd>
         <% end %>
-      </dd>
-    </dl>
+        <dt class="col-sm-3">Telefone:</dt>
+        <dd class="col-sm-9"><%= @buffet.phone %></dd>
+        <dt class="col-sm-3">E-mail:</dt>
+        <dd class="col-sm-9"><%= @buffet.email %></dd>
+        <dt class="col-sm-3">Localização:</dt>
+        <dd class="col-sm-9"><%= @buffet.address %>, <%= @buffet.city %> | <%= @buffet.state %></dd>
+        <dt class="col-sm-3">CEP:</dt>
+        <dd class="col-sm-9"><%= @buffet.zip_code %></dd>
+        <dt class="col-sm-3">CNPJ:</dt>
+        <dd class="col-sm-9"><%= @buffet.registration_number %></dd>
+        <dt class="col-sm-3">Meios de Pagamento:</dt>
+        <dd class="col-sm-9">
+          <% @buffet.payment_methods.each do |method| %>
+            <%= method.name %><%= "," unless method == @buffet.payment_methods.last %>
+          <% end %>
+        </dd>
+      </dl>
+    </div>
   </div>
 
   <h2 class="mt-4 mb-3 text-primary">Eventos Realizados:</h2>
@@ -32,14 +39,15 @@
     <div class="list-group">
       <% @buffet.event_types.each do |event_type| %>
         <div class="list-group-item">
-          <strong><%= link_to(event_type.name, event_type_path(event_type)) %>:</strong> <%= event_type.description %>
+          <strong><h5 class="mt-1"><%= link_to(event_type.name, event_type_path(event_type)) %></h5></strong> 
+          <%= event_type.description %>
           <p>
             Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %><br>
             Duração: <%= event_type.duration_minutes / 60 %> horas<br>
             Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
           </p>
           <% if event_type.image.attached? %>
-            <%= image_tag event_type.image, class: 'img-fluid rounded-circle' %>
+            <%= image_tag event_type.image, class: 'img-fluid rounded img-show' %>
           <% end %>
         </div>
       <% end %>

@@ -14,18 +14,6 @@
  *= require_self
  */
 
-.resized-image {
-    width: 500px;
-    height: auto;
-}
-
-.circular-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
 .sr-only {
     position: absolute;
     width: 1px;
@@ -35,4 +23,22 @@
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+.img-show {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.img-index {
+    max-width: 305px;
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.img-details {
+    max-width: 400px;
+    max-height: 400px;
+    object-fit: cover;
 }
