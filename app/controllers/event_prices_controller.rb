@@ -4,18 +4,19 @@ class EventPricesController < ApplicationController
     before_action :authorize_owner!, only: [:edit, :update]
 
     def new
-        @event_price = EventPrice.new()
-        @event_type = EventType.find(params[:event_type_id])
+      @event_type = EventType.find(params[:event_type_id])
+      @event_price = EventPrice.new()
     end
 
     def create
+        @event_type = EventType.find(params[:event_type_id])
         @event_price = EventPrice.new(event_price_params)
-        @event_price.event_type = EventType.find(params[:event_type_id])
+        @event_price.event_type = @event_type
 
         if @event_price.save
             redirect_to event_type_path(@event_price.event_type), notice: 'Preços registrados com sucesso.'
           else
-            flash.now[:notice] = 'Não foi possível registrar o preço.'
+            flash.now[:alert] = 'Não foi possível registrar o preço.'
             render :new
           end
     end

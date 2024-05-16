@@ -18,3 +18,4 @@ pt-BR:
         zip_code: "CEP"
         description: "Descrição"
         payment_methods: "Meios de Pagamento"
+        image: "Imagem"

@@ -76,7 +76,6 @@ describe 'Usuário vê pedidos' do
             formatted_date_2 = I18n.localize(1.week.from_now.to_date)
             expect(page).not_to have_content "Data: #{formatted_date_2}"
 
-
         end
 
         it 'e não existem pedidos cadastrados' do

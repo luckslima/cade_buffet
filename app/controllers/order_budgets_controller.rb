@@ -13,6 +13,7 @@ class OrderBudgetsController < ApplicationController
     def create
         @order = Order.find(params[:order_id])
         order_budget_params = params.require(:order_budget).permit(:valid_until, :payment_method_id, :extra_fee, :discount, :description)
+        @payment_methods = @order.buffet.payment_methods
         
         extra_fee = order_budget_params[:extra_fee].present? ? order_budget_params[:extra_fee].gsub(',', '.').to_f : 0.0
         discount = order_budget_params[:discount].present? ? order_budget_params[:discount].gsub(',', '.').to_f : 0.0

@@ -14,10 +14,10 @@ class OrdersController < ApplicationController
         @order.buffet = @event_type.buffet
         @order.event_type = @event_type
 
-        if @order.save!
+        if @order.save
             redirect_to @order, notice: 'Pedido criado com sucesso, aguarde a aprovaçao do Buffet!'
         else
-            flash.now[:notice] = 'Não foi possível criar pedido.'
+            flash.now[:alert] = 'Não foi possível criar pedido.'
             render :new
         end
     end

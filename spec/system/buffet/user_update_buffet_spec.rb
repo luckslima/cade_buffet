@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe 'Usuário atualiza um buffet' do 
+
     it 'com sucesso' do
         #Arrange
         user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
@@ -27,6 +28,58 @@ describe 'Usuário atualiza um buffet' do
         expect(page).to have_content("Buffet da Patty")
         expect(page).to have_content("40324-500")
 
+    end
+
+    it 'e deixa dados incompletos' do 
+
+        #Arrange
+        user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        method_1 = PaymentMethod.create!(name: "Boleto Bancário")
+        buffet = Buffet.create!(brand_name: "Patty Buffet", corporate_name: "Patty Buffet LTDA", registration_number: "1254783654", 
+                                phone: "71-85642014", email: "pattybuffet@email.com", address: "Av oceânica, 100", district: "Barra", 
+                                city: "Salvador", state: "Bahia", zip_code: "40527-700", 
+                                description: "Buffet para casamentos e festas de 15 anos", user: user)
+        buffet.payment_methods << method_1
+
+        #Act
+        login_as(user)
+        visit root_path
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
+        click_on 'Atualizar Buffet'
+        fill_in "Endereço", with: ""
+        fill_in "Bairro", with: "" 
+        click_on 'Salvar Buffet'
+                
+        #Assert 
+        expect(page).to have_content("Endereço não pode ficar em branco")
+        expect(page).to have_content("Bairro não pode ficar em branco")
+
+    end
+
+    it 'e adiciona uma foto de capa' do
+        #Arrange
+        user = User.create!(name: 'Patricia', cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+        method_1 = PaymentMethod.create!(name: "Boleto Bancário")
+        buffet = Buffet.create!(brand_name: "Patty Buffet", corporate_name: "Patty Buffet LTDA", registration_number: "1254783654", 
+                                phone: "71-85642014", email: "pattybuffet@email.com", address: "Av oceânica, 100", district: "Barra", 
+                                city: "Salvador", state: "Bahia", zip_code: "40527-700", 
+                                description: "Buffet para casamentos e festas de 15 anos", user: user)
+        buffet.payment_methods << method_1
+
+        #Act
+        login_as(user)
+        visit root_path
+        within("#nav-meu-buffet") do
+            click_on 'Meu buffet'
+        end
+        click_on 'Atualizar Buffet'
+        attach_file 'Imagem', Rails.root.join('spec', 'support', 'casamento.jpg')
+        click_on 'Salvar Buffet'
+                
+        #Assert 
+        expect(Buffet.last.image).to be_attached
     end
 
     it 'e a ação é negada' do
