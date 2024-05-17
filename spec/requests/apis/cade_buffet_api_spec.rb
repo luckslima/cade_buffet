@@ -119,6 +119,40 @@ describe 'Cade_buffet API' do
             expect(json_response[0]['brand_name']).to eq 'Patty Buffet'
         end
 
+        it 'list all buffets with average rating' do
+            # Arrange
+            user_1 = User.create!(name: 'Patricia',  cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+            user_2 = User.create!(name: 'Victor', cpf: '98338378402', email: 'vitinho@gmail.com', password: 'vitor123', is_buffet_owner: true)
+            method_1 = PaymentMethod.create!(name: "Boleto Bancário")
+            method_2 = PaymentMethod.create!(name: "Cartão de Crédito")
+            buffet_1 = Buffet.create!(brand_name: "Patty Buffet", corporate_name: "Patty Buffet LTDA", registration_number: "1254783654", 
+                                      phone: "71-85642014", email: "pattybuffet@email.com", address: "Av oceânica, 100", district: "Barra", 
+                                      city: "Salvador", state: "Bahia", zip_code: "40527-700", 
+                                      description: "Buffet para casamentos e festas de 15 anos", user: user_1, status: :active)
+            buffet_1.payment_methods << [method_1, method_2]
+            buffet_2 = Buffet.create!(brand_name: "Vitinho do Buffet", corporate_name: "Vitinho do Buffet LTDA", registration_number: "251715366833", 
+                                      phone: "55-89742994", email: "buffetviti@email.com", address: "Av contorno, 100", district: "Comércio", 
+                                      city: "São Paulo", state: "SP", zip_code: "403647-460", 
+                                      description: "Buffet para todas as horas!", user: user_2, status: :active)
+            buffet_2.payment_methods << [method_1, method_2]
+            
+            Review.create!(buffet: buffet_1, user: user_2, rating: 4, comment: 'Muito bom!')
+            Review.create!(buffet: buffet_2, user: user_1, rating: 5, comment: 'Excelente!')
+      
+            # Act
+            get '/api/v1/buffets'
+      
+            # Assert
+            expect(response.status).to eq 200
+            expect(response.content_type).to include 'application/json'
+            json_response = JSON.parse(response.body)
+            expect(json_response.length).to eq 2
+            expect(json_response[0]['brand_name']).to eq 'Patty Buffet'
+            expect(json_response[0]['average_rating']).to eq 4.0
+            expect(json_response[1]['brand_name']).to eq 'Vitinho do Buffet'
+            expect(json_response[1]['average_rating']).to eq 5.0
+          end
+
         it 'return empty if there is no buffets' do
             #Arrange
 
@@ -172,6 +206,31 @@ describe 'Cade_buffet API' do
             expect(json_response.keys).not_to include("corporate_name")
             expect(json_response.keys).not_to include("registration_number")
         end
+
+        it 'details including average rating' do
+            # Arrange
+            user = User.create!(name: 'Patricia',  cpf: '21642440795', email: 'paty@gmail.com', password: 'paty123', is_buffet_owner: true)
+            method = PaymentMethod.create!(name: "Boleto Bancário")
+            buffet = Buffet.create!(brand_name: "Patty Buffet", corporate_name: "Patty Buffet LTDA", registration_number: "1254783654", 
+                                    phone: "71-85642014", email: "pattybuffet@email.com", address: "Av oceânica, 100", district: "Barra", 
+                                    city: "Salvador", state: "Bahia", zip_code: "40527-700", 
+                                    description: "Buffet para casamentos e festas de 15 anos", user: user, status: :active)
+            buffet.payment_methods << method
+            Review.create!(buffet: buffet, user: user, rating: 4, comment: 'Muito bom!')
+      
+            # Act
+            get "/api/v1/buffets/#{buffet.id}"
+      
+            # Assert
+            expect(response.status).to eq 200
+            expect(response.content_type).to include 'application/json'
+            json_response = JSON.parse(response.body)
+            expect(json_response["brand_name"]).to eq('Patty Buffet')
+            expect(json_response["state"]).to eq('Bahia')
+            expect(json_response["average_rating"]).to eq 4.0
+            expect(json_response.keys).not_to include("corporate_name")
+            expect(json_response.keys).not_to include("registration_number")
+          end
 
         it 'fail if buffet not found' do
             #Arrange

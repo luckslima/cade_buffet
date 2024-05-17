@@ -17,7 +17,8 @@ describe 'Usuário vê pedidos' do
             event_type = EventType.create!(name: 'Halloween', description: 'Doces e deliciosas travessuras', min_guests: 50, max_guests: 500, 
                                            duration_minutes: 300, menu_description: 'Massas, saladas e Sobremesas', alcohol_included: true, 
                                            parking_available: true, location_type: 'on_site', buffet: buffet)
-            event_price = EventPrice.create!(base_price: 7000, additional_guest_price: 200, extra_hour_price: 600, price_for_weekend: true, event_type: event_type)
+            event_price_1 = EventPrice.create!(base_price: 7000, additional_guest_price: 200, extra_hour_price: 600, price_for_weekend: true, event_type: event_type)
+            event_price_2 = EventPrice.create!(base_price: 4000, additional_guest_price: 200, extra_hour_price: 600, price_for_weekend: false, event_type: event_type)
             client = User.create!(name: 'João', cpf: '75212608805', email: 'joao@email.com', password: 'joao123', is_buffet_owner: false)
             order = Order.create!(buffet: buffet, user:client, event_type: event_type, number_of_guests: 150, 
                                   event_date: 1.month.from_now, details: 'Halloween fora de época',  payment_method: method_1)

@@ -59,8 +59,10 @@
                                 <% if order.approved? %>
                                     - Status: <%= I18n.translate(order.status) %>
                                     <p class="text-warning">Aguardando sua confirmação!</p>     
+                                <% elsif order.confirmed? && order.event_date < Date.today  %>
+                                    <%= link_to 'Avaliar Buffet', new_buffet_review_path(order.buffet.id), class: 'btn btn-success' %>   
                                 <% else %>
-                                    - Status: <%= I18n.translate(order.status) %>       
+                                    - Status: <%= I18n.translate(order.status) %>    
                                 <% end %>
                             </li>
                         <% end %>

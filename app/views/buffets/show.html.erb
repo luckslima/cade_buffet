@@ -2,6 +2,10 @@
   <h1 class="display-4 text-primary"> <%= @buffet.brand_name %> </h1>
   <p class="lead"><%= @buffet.description %></p>
 
+  <% if @buffet.reviews.any? %>
+    <p class="lead">Nota média: <%= @buffet.average_rating.round(2) %></p>
+  <% end %>
+
   <% if @buffet.inactive? %>
             <div class="alert alert-warning">
                 <strong>Aviso:</strong> Este buffet se encontra inativo.
@@ -83,6 +87,34 @@
   <% else %>
     <p>Nenhum tipo de evento cadastrado.</p>
   <% end %>
+
+    <h3 class="mt-4 text-primary">Avaliações do Buffet</h3>
+
+    <div class="card">
+      <div class="card-body">
+        <% if @buffet.reviews.any? %>
+          <% @buffet.reviews.order(created_at: :desc).limit(3).each do |review| %>
+            <p>
+              <strong><%= review.user.name %> (enviado em <%= review.created_at.strftime("%d/%m/%Y às %H:%M") %>):</strong>
+              <%= review.comment %>
+            </p>
+            <% if review.photos.attached? %>
+              <div>
+                <strong>Fotos:</strong>
+                <% review.photos.each do |photo| %>
+                  <%= image_tag photo, class: 'img-thumbnail' %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+          <% if @buffet.reviews.count > 3 %>
+           <%= link_to 'Ver mais avaliações',  buffet_reviews_path(@buffet), class: 'btn btn-success' %>   
+          <% end %>
+        <% else %>
+          <p>Ainda não existem avaliações.</p>
+        <% end %>
+      </div>
+    </div>
 
   <% if current_user == @buffet.user %>
     <div class="mt-4">

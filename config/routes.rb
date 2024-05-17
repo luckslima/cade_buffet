@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get 'search', on: :collection
     get 'deactivate', on: :member
     get 'activate', on: :member
+    resources :reviews, only: [:new, :create, :index]
   end
 
 

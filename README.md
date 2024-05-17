@@ -37,6 +37,7 @@
 - [X] Clientes e Donos de Buffet podem trocar mensagens dentro da página de detalhes de um pedido.
 - [X] Donos de Buffet podem destivar o buffet.
 - [X] Donos de Buffet podem destivar tipos de evento.
+- [X] Clientes podem avaliar buffets.
 
 ## Como Rodar a Aplicação? :arrow_forward:
 
@@ -92,6 +93,10 @@ Para se cadastrar um usuário deve informar o nome, um cpf válido, um email e u
 
 > Para aprovar um pedido, o dono do buffet deve gerar um orçamento para um pedido, (que quando é criado a aplicação já calcula um preço base a partir dos preços do evento escolhido) informando se existem taxas extras, descontos e também informando detalhes sobre o orçamento e o método de pagamento. Ao gerar o orçamento o pedido é aprovado e a aplicação registra o preço final. 
 
+- Avaliações
+
+> Clientes que já realizaram eventos com o buffet podem registrar avaliações, que serão exibidas na tela de detalhes do buffet, junto com a nota média das avaliações. 
+
 ### Clientes 
 
 - Procurar buffets
@@ -106,6 +111,9 @@ Para se cadastrar um usuário deve informar o nome, um cpf válido, um email e u
 
 > Quando um cliente clica em um tipo de evento realizado é possível ele fazer um pedido daquele evento para o buffet. Para isso ele deve informar a data desejada, a quantidade estimada de convidados, detalhes sobre o evento e ,se o tipo de evento permitir a realização em outro lugar, o cliente deve informar também o endereço de onde o evento irá acontecer. Com isso um pedido é criado, e o cliente pode aguardar a aprovação do buffet e, se ela acontecer, pode confirmar o pedido. 
 
+- Avaliações
+
+> Um cliente quando tem seu pedido confirmado e a data atual é posterior a data da realização do evento, pode avaliar o buffet, através de um botão em seu pedido. O cliente deve informar uma nota (de 0 a 5) e um comentário, a avaliação já automaticamente ligada ao usuário e ao buffet do pedido. 
 
 ## API Cadê Buffet?
 

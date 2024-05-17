@@ -1,0 +1,27 @@
+<div class="container mt-5">
+
+    <h2 class="display-4 text-primary"> Avaliações sobre '<%= @buffet.brand_name %>' </h2>
+
+    <div class="card">
+      <div class="card-body">
+        <% if @reviews.any? %>
+          <% @reviews.order(created_at: :desc).each do |review| %>
+            <p>
+              <strong><%= review.user.name %> (enviado em <%= review.created_at.strftime("%d/%m/%Y às %H:%M") %>):</strong>
+              <%= review.comment %>
+            </p>
+            <% if review.photos.attached? %>
+              <div>
+                <strong>Fotos:</strong>
+                <% review.photos.each do |photo| %>
+                  <%= image_tag photo, class: 'img-thumbnail' %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% else %>
+          <p>Nenhuma avaliação disponível.</p>
+        <% end %>
+      </div>
+    </div>
+</div>
