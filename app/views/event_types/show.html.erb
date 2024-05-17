@@ -1,6 +1,12 @@
 <div class="container mt-5">
     <h2 class="mb-3 text-primary"><%= @event_type.name %></h2>
 
+    <% if @event_type.inactive? %>
+        <div class="alert alert-warning">
+            <strong>Aviso:</strong> Esse tipo de evento não é mais realizado.
+        </div>
+    <% end %>
+
     <% if @event_type.image.attached? %>
         <%= image_tag @event_type.image, class: 'img-fluid rounded img-details mb-3' %>
     <% end %>
@@ -58,13 +64,20 @@
         <div class="mt-4">
             <%= link_to('Atualizar tipo de evento', edit_event_type_path(@event_type.id), class: 'btn btn-primary') %> 
             <%= link_to('Cadastrar preço para evento', new_event_type_event_price_path(@event_type.id), class: 'btn btn-secondary') %> 
+            <% if @event_type.active? %>
+                <%= link_to 'Desativar tipo de evento', deactivate_event_type_path, class: 'btn btn-danger' %>
+            <% else %>
+                <%= link_to 'Reativar tipo de evento', activate_event_type_path, class: 'btn btn-success' %>
+            <% end %>
         </div>
     <% end %>
 
     <% if user_signed_in? %>
         <br>
         <% if !current_user.is_buffet_owner %>
-            <%= link_to('Criar Pedido para evento', new_event_type_order_path(@event_type.id), class: 'btn btn-primary') %>  
+            <% if @buffet.active? && @event_type.active? %>
+                <%= link_to('Criar Pedido para evento', new_event_type_order_path(@event_type.id), class: 'btn btn-primary') %>  
+            <% end %>
         <% end %>
     <% end %>
 </div>

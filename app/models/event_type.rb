@@ -5,6 +5,8 @@ class EventType < ApplicationRecord
   has_many :event_prices, dependent: :destroy
   has_one_attached :image
 
+  enum status: { inactive: 0, active: 1 }
+
   def calculate_base_price(date, number_of_guests)
     is_weekend = date.saturday? || date.sunday?
   

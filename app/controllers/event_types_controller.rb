@@ -4,6 +4,7 @@ class EventTypesController < ApplicationController
 
     def show
       @event_type = EventType.find(params[:id])
+      @buffet = @event_type.buffet
     end
 
     def new
@@ -39,6 +40,28 @@ class EventTypesController < ApplicationController
           flash.now[:notice] = 'Não foi possível atualizar o tipo de evento.'
           render 'edit'
       end
+    end
+
+    def deactivate
+      @event_type = EventType.find(params[:id])
+
+      if @event_type.inactive!
+        redirect_to event_type_path(@event_type.id)
+      else
+        redirect_to event_type_path(@event_type.id), notice: 'Não foi possível desativar o tipo de evento, tente novamente mais tarde.'
+      end
+
+    end
+
+    def activate
+      @event_type = EventType.find(params[:id])
+
+      if @event_type.active!
+        redirect_to event_type_path(@event_type.id), notice: 'Tipo de evento reativado com sucesso!'
+      else
+        redirect_to event_type_path(@event_type.id), notice: 'Não foi possível ativar o tipo de evento, tente novamente mais tarde.'
+      end
+
     end
 
     private

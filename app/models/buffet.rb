@@ -7,4 +7,6 @@ class Buffet < ApplicationRecord
   has_many :payment_method_buffets
   has_many :payment_methods, through: :payment_method_buffets
   has_one_attached :image
+
+  enum status: { inactive: 0, active: 1 }
 end

@@ -2,7 +2,7 @@ class Api::V1::EventTypesController < Api::V1::ApiController
     
     def index
         buffet = Buffet.find(params[:buffet_id])
-        event_types = buffet.event_types
+        event_types = buffet.event_types.where(status: 1)
         render status: 200, json: event_types.as_json(except: [:created_at, :updated_at])
     end
 

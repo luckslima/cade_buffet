@@ -4,12 +4,16 @@ Rails.application.routes.draw do
 
   resources :buffets, only: [:new, :create, :show, :edit, :update] do
     get 'search', on: :collection
+    get 'deactivate', on: :member
+    get 'activate', on: :member
   end
 
 
   resources :event_types, only: [:show, :new, :create, :edit, :update] do
     resources :event_prices, only: [:new, :create, :edit, :update]
     resources :orders, only: [:new, :create]
+    get 'deactivate', on: :member
+    get 'activate', on: :member
   end
 
   resources :orders, only: [:index, :show] do

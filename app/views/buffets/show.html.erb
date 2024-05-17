@@ -2,6 +2,12 @@
   <h1 class="display-4 text-primary"> <%= @buffet.brand_name %> </h1>
   <p class="lead"><%= @buffet.description %></p>
 
+  <% if @buffet.inactive? %>
+            <div class="alert alert-warning">
+                <strong>Aviso:</strong> Este buffet se encontra inativo.
+            </div>
+  <% end %>
+
   <div class="row mb-4">
     <% if @buffet.image.attached? %>
       <div class="col-md-4">
@@ -36,22 +42,44 @@
 
   <h2 class="mt-4 mb-3 text-primary">Eventos Realizados:</h2>
   <% if @buffet.event_types.any? %>
+  <% if current_user == @buffet.user %>
+      <div class="list-group">
+        <% @buffet.event_types.each do |event_type| %>
+            <div class="list-group-item">
+              <strong><h5 class="mt-1"><%= link_to(event_type.name, event_type_path(event_type)) %></h5></strong> 
+              <%= event_type.description %>
+              <p>
+                Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %><br>
+                Duração: <%= event_type.duration_minutes / 60 %> horas<br>
+                Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
+              </p>
+              <% if event_type.image.attached? %>
+                <%= image_tag event_type.image, class: 'img-fluid rounded img-show' %>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
+  <% else %>
     <div class="list-group">
       <% @buffet.event_types.each do |event_type| %>
-        <div class="list-group-item">
-          <strong><h5 class="mt-1"><%= link_to(event_type.name, event_type_path(event_type)) %></h5></strong> 
-          <%= event_type.description %>
-          <p>
-            Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %><br>
-            Duração: <%= event_type.duration_minutes / 60 %> horas<br>
-            Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
-          </p>
-          <% if event_type.image.attached? %>
-            <%= image_tag event_type.image, class: 'img-fluid rounded img-show' %>
-          <% end %>
-        </div>
+        <% if event_type.active? %>
+          <div class="list-group-item">
+            <strong><h5 class="mt-1"><%= link_to(event_type.name, event_type_path(event_type)) %></h5></strong> 
+            <%= event_type.description %>
+            <p>
+              Mínimo de Convidados: <%= event_type.min_guests %>, Máximo de Convidados: <%= event_type.max_guests %><br>
+              Duração: <%= event_type.duration_minutes / 60 %> horas<br>
+              Local: <%= event_type.location_type == 'on_site' ? 'No local' : 'Em outro local' %>
+            </p>
+            <% if event_type.image.attached? %>
+              <%= image_tag event_type.image, class: 'img-fluid rounded img-show' %>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
+
+  <% end %>
   <% else %>
     <p>Nenhum tipo de evento cadastrado.</p>
   <% end %>
@@ -60,6 +88,11 @@
     <div class="mt-4">
       <%= link_to 'Atualizar Buffet', edit_buffet_path(@buffet.id), class: 'btn btn-primary' %> 
       <%= link_to 'Cadastrar tipo de evento', new_event_type_path, class: 'btn btn-secondary' %>
+      <% if @buffet.active? %>
+            <%= link_to 'Desativar Buffet', deactivate_buffet_path, class: 'btn btn-danger' %>
+      <% else %>
+            <%= link_to 'Reativar Buffet', activate_buffet_path, class: 'btn btn-success' %>
+      <% end %>
     </div>
   <% end %>
 </div>

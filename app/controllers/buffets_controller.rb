@@ -7,15 +7,14 @@ class BuffetsController < ApplicationController
       @query = params[:query]
       
       @buffets = Buffet.left_joins(:event_types)
-                      .where("buffets.brand_name LIKE :query OR 
+                      .where("buffets.status = 1  AND
+                              buffets.brand_name LIKE :query OR 
                               buffets.city LIKE :query OR 
                               event_types.name LIKE :query", query: "%#{@query}%")
                       .distinct
                       .order(:brand_name)
     end
   
-  
-
     def new
         @buffet = Buffet.new()
     end
@@ -53,6 +52,30 @@ class BuffetsController < ApplicationController
           render 'edit'
       end
     end
+
+    def deactivate
+      @buffet = Buffet.find(params[:id])
+
+      if @buffet.inactive!
+        redirect_to buffet_path(@buffet.id)
+      else
+        redirect_to buffet_path(@buffet.id), notice: 'Não foi possível desativar o buffet, tente novamente mais tarde.'
+      end
+
+    end
+
+    def activate
+      @buffet = Buffet.find(params[:id])
+
+      if @buffet.active!
+        redirect_to buffet_path(@buffet.id), notice: 'Buffet reativado com sucesso!'
+      else
+        redirect_to buffet_path(@buffet.id), notice: 'Não foi possível ativar o buffet, tente novamente mais tarde.'
+      end
+
+    end
+
+    
 
     private
 

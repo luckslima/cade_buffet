@@ -22,19 +22,21 @@
 
 ## Principais Funcionalidades: 
 
-- [X] Cadastro de conta como Dono de Buffet
-- [X] Cadastro de conta como Cliente 
-- [X] Cadastro de Buffet
-- [X] Adicionar tipos de evento para um Buffet
-- [X] Vincular preços a um tipo de evento 
-- [X] Listagem de Buffets cadastrados na página principal 
-- [X] Busca por um Buffet 
-- [X] Ver tipos de eventos que um Buffet oferece e seus preços 
-- [X] Um Cliente pode contratar um Buffet criando um pedido para um evento
-- [X] Clientes e Donos de Buffet podem ver e acessar pedidos feitos
+- [X] Cadastro de conta como Dono de Buffet.
+- [X] Cadastro de conta como Cliente.
+- [X] Cadastro de Buffet.
+- [X] Adicionar tipos de evento para um Buffet.
+- [X] Vincular preços a um tipo de evento .
+- [X] Listagem de Buffets cadastrados na página principal.
+- [X] Busca por um Buffet.
+- [X] Ver tipos de eventos que um Buffet oferece e seus preços.
+- [X] Um Cliente pode contratar um Buffet criando um pedido para um evento.
+- [X] Clientes e Donos de Buffet podem ver e acessar pedidos feitos.
 - [X] Donos de Buffet podem aprovar pedidos feitos por clientes.
 - [X] Clientes podem confirmar pedidos aprovados por Donos de Buffet, desde que estejam dentro do prazo.
 - [X] Clientes e Donos de Buffet podem trocar mensagens dentro da página de detalhes de um pedido.
+- [X] Donos de Buffet podem destivar o buffet.
+- [X] Donos de Buffet podem destivar tipos de evento.
 
 ## Como Rodar a Aplicação? :arrow_forward:
 
@@ -72,11 +74,11 @@ Para se cadastrar um usuário deve informar o nome, um cpf válido, um email e u
 
 - Buffets:
 
-> Se um usuário se cadastra como dono de buffet, o próximo passo é cadastrar o buffet, não sendo possível ir para outra tela da aplicação (exceto logout). Para registrar o buffet, o dono dever informar o nome fantasia, razão social, CNPJ, telefone para contato, e-mail para contato e endereço completo com endereço, bairro, estado, cidade e CEP. Além destes dados, o dono do buffet deve poder adicionar uma descrição de seu buffet, os meios de pagamentos aceitos e uma imagem de capa. O usuário dono de buffet é o único capaz de editar os dados de seu próprio buffet. E não é possível excluir um buffet.
+> Se um usuário se cadastra como dono de buffet, o próximo passo é cadastrar o buffet, não sendo possível ir para outra tela da aplicação (exceto logout). Para registrar o buffet, o dono dever informar o nome fantasia, razão social, CNPJ, telefone para contato, e-mail para contato e endereço completo com endereço, bairro, estado, cidade e CEP. Além destes dados, o dono do buffet deve poder adicionar uma descrição de seu buffet, os meios de pagamentos aceitos e uma imagem de capa. O usuário dono de buffet é o único capaz de editar os dados de seu próprio buffet. E não é possível excluir um buffet, mas é possível desativa-lo e não exibilo para outros usuários.
 
 - Tipos de evento:
 
-> Um buffet pode oferecer diferentes tipos de eventos: festas de 15 anos, festas de casamento, serviço de buffet para conferências e congressos, festas corporativas etc. Cada dono de buffet pode cadastrar os tipos de evento que realiza. Para cada tipo de evento ele deve informar: nome, descrição, quantidade mínima e máxima de pessoas que podem ser atendidas e a duração padrão do evento em minutos. Cada tipo de evento deve possuir também um texto que indica o cardápio para o evento. E deve ser informado se o evento possui opção de: bebidas alcoólicas, decoração e serviço de estacionamento ou valet. Para cada tipo de evento, o dono do buffet precisa indicar se o evento deve ser realizado exclusivamente no endereço do buffet ou se pode ser feito em um endereço indicado pelo cliente. O dono do Buffet pode também inserir uma imagem de capa para cada tipo de evento. 
+> Um buffet pode oferecer diferentes tipos de eventos: festas de 15 anos, festas de casamento, serviço de buffet para conferências e congressos, festas corporativas etc. Cada dono de buffet pode cadastrar os tipos de evento que realiza. Para cada tipo de evento ele deve informar: nome, descrição, quantidade mínima e máxima de pessoas que podem ser atendidas e a duração padrão do evento em minutos. Cada tipo de evento deve possuir também um texto que indica o cardápio para o evento. E deve ser informado se o evento possui opção de: bebidas alcoólicas, decoração e serviço de estacionamento ou valet. Para cada tipo de evento, o dono do buffet precisa indicar se o evento deve ser realizado exclusivamente no endereço do buffet ou se pode ser feito em um endereço indicado pelo cliente. O dono do Buffet pode também inserir uma imagem de capa para cada tipo de evento. É possível desativar tipos de evento, fazendo com que outros usuários e clientes não possam vê-lo nem criar pedidos. 
 
 - Preços por tipo de evento:
 
@@ -111,7 +113,7 @@ Para se cadastrar um usuário deve informar o nome, um cpf válido, um email e u
 
 - 'GET /api/v1/buffets' 
 
-> Nesse endpoint é retornado uma listagem de todos os buffets cadastrados, com todos os seus atributos, no padrão Json. Nesse endpoint é possível passar um parametro de busca na url, chamado "search" para buscar um buffet pelo seu nome (brand_name). 
+> Nesse endpoint é retornado uma listagem de todos os buffets cadastrados e ativos, com todos os seus atributos, no padrão Json. Nesse endpoint é possível passar um parametro de busca na url, chamado "search" para buscar um buffet pelo seu nome (brand_name). 
 
 - 'GET /api/v1/buffets/:id'
 
@@ -119,7 +121,7 @@ Para se cadastrar um usuário deve informar o nome, um cpf válido, um email e u
 
 - 'GET /api/v1/buffets/:buffet_id/event_types'
 
-> A partir de um buffet é possível obter uma listagem de todos os tipos de eventos que ele realiza através desse endpoint.
+> A partir de um buffet é possível obter uma listagem de todos os tipos de eventos ativos que ele realiza através desse endpoint.
 
 - 'GET /api/v1/buffets/:buffet_id/event_types/:id/availability'
 
